@@ -12,14 +12,14 @@ const MyPosts = () => {
             <div>
                 My posts
                 <div>
-                    <textarea> </textarea>
+                    <textarea > </textarea>
                     <div>
                         <button>add post</button>
                     </div>
                 </div >
                 <div className={s.posts}>
-                  <Post message='hi jija'/>
-                  <Post  message='bye jija'/>
+                  <Post message='hi jija' likesCount={'4'}/>
+                  <Post  message='bye jija' likesCount={'6'}/>
             </div>
         </div>
         </div>

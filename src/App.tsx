@@ -1,12 +1,19 @@
 import React from 'react';
-import './App.css';
+import s from './App.module.css';
+import Header from "./Components/Header/Header";
+import NavBar from "./Components/Navbar/Navbar";
+import Profile from "./Components/Profile/Profile";
 
 function App() {
-  return (
-    <div className="App">
-     Hello, samurai! Let's go!
-    </div>
-  );
+    return (
+        <div className={s.appWrapper}>
+            <Header/>
+            <NavBar/>
+            <Profile/>
+
+
+        </div>
+    );
 }
 
 export default App;

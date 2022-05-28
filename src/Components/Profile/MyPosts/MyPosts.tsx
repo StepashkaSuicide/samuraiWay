@@ -1,16 +1,17 @@
 import React from 'react';
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
+import {ProfilePageType} from "../../../Redux/state";
 
 
 
 
-const MyPosts = () => {
+const MyPosts = (props:ProfilePageType) => {
+
+    let postsElement = props.posts.map(p=><Post key={p.id} message={p.message} likesCount={p.likesCount} id={p.id}/>)
     return (
-
-            <div>
-            <div>
-                My posts
+            <div className={s.postsBlock}>
+                <h3>My posts</h3>
                 <div>
                     <textarea > </textarea>
                     <div>
@@ -18,11 +19,11 @@ const MyPosts = () => {
                     </div>
                 </div >
                 <div className={s.posts}>
-                  <Post message='hi jija' likesCount={'4'}/>
-                  <Post  message='bye jija' likesCount={'6'}/>
+                    {postsElement}
+
             </div>
         </div>
-        </div>
+
     );
 };
 

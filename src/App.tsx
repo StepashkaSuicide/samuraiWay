@@ -3,11 +3,19 @@ import s from './App.module.css';
 import Header from "./Components/Header/Header";
 import NavBar from "./Components/Navbar/Navbar";
 import Profile from "./Components/Profile/Profile";
-import Dialogs from "./Components/Dialogs/Dialogs";
+import {Dialogs} from "./Components/Dialogs/Dialogs";
 import {Routes, Route} from 'react-router-dom'
+import {RootStateType} from "./Redux/state";
 
 
-function App() {
+
+type PropsType = {
+    state: RootStateType;
+}
+
+
+
+function App(props: PropsType) {
     return (
 
         <div className={s.appWrapper}>
@@ -15,8 +23,11 @@ function App() {
             <NavBar/>
             <div className={s.appWrapperContent}>
                 <Routes>
-                    <Route path='/profile' element={<Profile/>}/>
-                    <Route path='/dialogs' element={<Dialogs/>}/>
+                    <Route path='/profile' element={
+                        <Profile posts={props.state.profilePage.posts} />}/>
+                    <Route path='/dialogs/*' element={
+                        <Dialogs dialogs={props.state.dialogsPage.dialogs}
+                                 messages={props.state.dialogsPage.messages}/>}/>
                 </Routes>
             </div>
         </div>
@@ -24,3 +35,4 @@ function App() {
 }
 
 export default App;
+

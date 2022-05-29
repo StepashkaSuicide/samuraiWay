@@ -4,11 +4,6 @@ import DialogItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
 import {DialogPageType} from "../../Redux/state";
 
-
-
-
-
-
 export const Dialogs = (props:DialogPageType) => {
     let DialogsElements = props.dialogs.map(d =>
         <DialogItem  key={d.id} name={d.name} id={d.id}/>);

@@ -29,7 +29,7 @@ export type RootStateType = {
 }
 
 let renderTree = (state: RootStateType) => {
-    console.log('statec')
+    console.log('state changed')
 }
 
 

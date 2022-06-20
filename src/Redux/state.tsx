@@ -1,6 +1,8 @@
+
 export type MessageType = {
     id: number
     message: string
+
 }
 export type DialogType = {
     id: number
@@ -13,7 +15,10 @@ export type PostType = {
 }
 export type ProfilePageType = {
     posts: Array<PostType>
+    messageForNewText: string
 }
+
+
 export type DialogPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
@@ -23,6 +28,13 @@ export type RootStateType = {
     dialogsPage: DialogPageType
 }
 
+let renderTree = (state: RootStateType) => {
+    console.log('statec')
+}
+
+
+
+
 let state: RootStateType = {
     profilePage: {
         posts: [
@@ -31,6 +43,7 @@ let state: RootStateType = {
             {id: 3, message: 'bye jija', likesCount: 14},
             {id: 4, message: 'oo jija', likesCount: 15},
         ],
+        messageForNewText: '',
     },
     dialogsPage: {
         dialogs: [
@@ -48,6 +61,27 @@ let state: RootStateType = {
             {id: 5, message: 'gg'},
         ],
     },
+}
+
+
+export const addPost = (postText: string) => {
+
+    const newPost: PostType = {
+        id: 6,
+        message: postText,
+        likesCount: 0,
+    }
+    state.profilePage.posts.push(newPost)
+    state.profilePage.messageForNewText = ''
+    renderTree(state)
+}
+export const changeNewPostText = (newText: string) => {
+    state.profilePage.messageForNewText = newText
+    renderTree(state)
+
+}
+export const subscribe = (observer: any) => {
+    renderTree = observer
 }
 
 

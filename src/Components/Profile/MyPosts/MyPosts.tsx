@@ -1,33 +1,42 @@
-import React from 'react';
-import s from "./MyPosts.module.css";
-import Post from "./Post/Post";
-import {ProfilePageType} from "../../../Redux/state";
+import React, {ChangeEvent} from 'react';
+import s from './MyPosts.module.css';
+import Post from './Post/Post';
+import {PostType} from '../../../Redux/state';
 
 
+type MessagesType = {
+    posts: Array<PostType>
+    addPostCallBack: (postText: string) => void
+    changeNewPostTextCallBack: (newText: string) => void
+    messageForNewText: string
+}
 
+const MyPosts = (props: MessagesType) => {
 
-const MyPosts = (props:ProfilePageType) => {
-
-
-    let postsElement = props.posts.map(p=><Post key={p.id} message={p.message} likesCount={p.likesCount} id={p.id}/>)
-
-    let newPostElement:any = React.createRef()
+    let postsElement = props.posts.map(p => <Post key={p.id}
+                                                  message={p.message}
+                                                  likesCount={p.likesCount}
+                                                  id={p.id}/>)
     let addPost = () => {
-        let text = newPostElement.current.value
-        alert(text)
+        props.addPostCallBack(props.messageForNewText)
+    }
+    let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.changeNewPostTextCallBack(e.currentTarget.value)
     }
     return (
-            <div className={s.postsBlock}>
-                <h3>My posts</h3>
+        <div className={s.postsBlock}>
+            <h3>My posts</h3>
+            <div>
+                <textarea
+                    value={props.messageForNewText}
+                    onChange={onPostChange}
+                > </textarea>
                 <div>
-                    <textarea ref={newPostElement}> </textarea>
-                    <div>
-                        <button onClick={addPost}>add post</button>
-                    </div>
-                </div >
-                <div className={s.posts}>
-                    {postsElement}
-
+                    <button onClick={addPost}>add post</button>
+                </div>
+            </div>
+            <div className={s.posts}>
+                {postsElement}
             </div>
         </div>
 

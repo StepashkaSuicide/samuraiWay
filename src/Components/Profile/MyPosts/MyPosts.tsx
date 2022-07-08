@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import {PostType} from '../../../Redux/state';
+import {ActionsTypes, PostType} from '../../../Redux/state';
 
 
 type MessagesType = {
@@ -9,6 +9,7 @@ type MessagesType = {
     addPostCallBack: (postText: string) => void
     changeNewPostTextCallBack: (newText: string) => void
     messageForNewText: string
+    dispatch: (action: ActionsTypes)=>void
 }
 
 const MyPosts = (props: MessagesType) => {
@@ -18,8 +19,10 @@ const MyPosts = (props: MessagesType) => {
                                                   likesCount={p.likesCount}
                                                   id={p.id}/>)
     let addPost = () => {
-        props.addPostCallBack(props.messageForNewText)
+    props.dispatch({type: 'ADD-POST', postText: props.messageForNewText})
+        // props.addPostCallBack(props.messageForNewText)
     }
+
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.changeNewPostTextCallBack(e.currentTarget.value)
     }

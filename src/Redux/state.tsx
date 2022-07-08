@@ -1,3 +1,4 @@
+
 export type MessageType = {
     id: number
     message: string
@@ -28,7 +29,27 @@ export type RootStateType = {
 }
 
 export type StoreType = {
-    store: RootStateType
+    _state: RootStateType
+    changeNewPostText: (newText:string)=> void
+    addPost: (newPost: string)=> void
+    _onChange: ()=> void
+    subscribe: (callBack: (state: StoreType) => void)=> void
+    getState: ()=> RootStateType
+    dispatch: (action: ActionsTypes )=> void
+}
+
+export type ActionsTypes =  AddPostActionType | ChangeNewTextActionType
+
+
+
+
+type AddPostActionType = {
+    type: 'ADD-POST'
+    postText: string
+}
+type ChangeNewTextActionType = {
+    type: 'CHANGE-NEW-TEXT'
+    newText: string
 }
 
 
@@ -60,32 +81,45 @@ export let store: StoreType = {
             ],
         },
     },
-    _callSubscriber(state: RootStateType) {
-        console.log('state changed')
+    changeNewPostText(newText: string) {
+        this._state.profilePage.messageForNewText = newText
+        this._onChange()
     },
-
-    subscribe(observer: any) {
-        _callSubscriber = observer
-    },
-
     addPost(postText: string) {
         const newPost: PostType = {
             id: 6,
             message: postText,
             likesCount: 0,
         }
-        this.store.profilePage.posts.push(newPost)
-        this.store.profilePage.messageForNewText = ''
-        this.store._callSubscriber(state)
+        this._state.profilePage.posts.push(newPost)
+        // this._state.profilePage.messageForNewText = ''
+        this._onChange()
     },
-    changeNewPostText(newText: string) {
-        state.profilePage.messageForNewText = newText
-        _callSubscriber(state)
-
+    _onChange() {
+        console.log('hello')
     },
+    subscribe(callback) {
+        this._onChange()
+    },
+    getState() {
+        return this._state
+    },
+    dispatch(action){
+        if (action.type==='ADD-POST') {
+            const newPost: PostType = {
+                id: 6,
+                message: action.postText,
+                likesCount: 0,
+            }
+            this._state.profilePage.posts.push(newPost)
+            // this._state.profilePage.messageForNewText = ''
+            this._onChange()
+        }else if (action.type === 'CHANGE-NEW-TEXT') {
+            this._state.profilePage.messageForNewText = action.newText
+            this._onChange()
+        }
 
+    }
 }
 
-
-
-
+export default store

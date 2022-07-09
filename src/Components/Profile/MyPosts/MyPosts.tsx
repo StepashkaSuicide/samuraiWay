@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import {ActionsTypes, PostType} from '../../../Redux/state';
+import {ActionsTypes, addPostAC, PostType} from '../../../Redux/state';
 
 
 type MessagesType = {
@@ -19,7 +19,8 @@ const MyPosts = (props: MessagesType) => {
                                                   likesCount={p.likesCount}
                                                   id={p.id}/>)
     let addPost = () => {
-    props.dispatch({type: 'ADD-POST', postText: props.messageForNewText})
+    props.dispatch(addPostAC(props.messageForNewText))
+
         // props.addPostCallBack(props.messageForNewText)
     }
 

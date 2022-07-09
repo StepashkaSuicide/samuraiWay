@@ -4,17 +4,29 @@ import {BrowserRouter} from "react-router-dom";
 import App from "./App";
 import React from "react";
 import store from './Redux/state';
+import {Provider} from 'react-redux';
 
 
 
 
-
+let rerenderIntireTree = ()=> {
     ReactDOM.render(
         <BrowserRouter>
-            <App  store={store}/>
+            {/*<Provider store={()=>{}}>*/}
+                <App  store={store}/>,
+            {/*</Provider>*/}
         </BrowserRouter>,
+
+
 
         document.getElementById('root')
     )
+}
+
+rerenderIntireTree()
+
+store.subscribe(()=> {
+    rerenderIntireTree()
+})
 
 

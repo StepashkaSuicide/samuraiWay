@@ -21,7 +21,6 @@ const MyPosts = (props: MessagesType) => {
     let addPost = () => {
     props.dispatch(addPostAC(props.messageForNewText))
 
-        // props.addPostCallBack(props.messageForNewText)
     }
 
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {

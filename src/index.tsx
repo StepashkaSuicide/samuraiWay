@@ -13,7 +13,7 @@ let rerenderIntireTree = ()=> {
     ReactDOM.render(
         <BrowserRouter>
             {/*<Provider store={()=>{}}>*/}
-                <App  store={store}/>,
+                <App  store={store}/>
             {/*</Provider>*/}
         </BrowserRouter>,
 

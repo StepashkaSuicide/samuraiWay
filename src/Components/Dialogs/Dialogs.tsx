@@ -1,20 +1,45 @@
-import React from 'react';
-import s from "./Dialogs.module.css";
-import DialogItem from "./DialogItem/DialogsItem";
-import Message from "./Message/Message";
-import {DialogPageType} from "../../Redux/state";
+import React, { ChangeEvent } from 'react';
+import s from './Dialogs.module.css';
+import DialogItem from './DialogItem/DialogsItem';
+import Message from './Message/Message';
+import {ActionsTypes, addPostAC, DialogType, MessageType, sendMessageAC} from '../../Redux/state';
 
-export const Dialogs = (props:DialogPageType) => {
+
+
+type DialogsPropsType = {
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
+    changeNewMessageBodyCallBack: (body: string) => void
+    dispatch: (action: ActionsTypes) => void
+    newMessageBody: string
+
+
+}
+
+
+
+export const Dialogs = (props: DialogsPropsType) => {
     let DialogsElements = props.dialogs.map(d =>
-        <DialogItem  key={d.id} name={d.name} id={d.id}/>);
+        <DialogItem key={d.id} message={d.message} id={d.id}/>);
     let messagesElements = props.messages.map(m =>
-        <Message  key={m.id} message={m.message} id={m.id}/>
+        <Message key={m.id} message={m.message} id={m.id}/>
     )
-    let newPostElement:any = React.createRef()
-    let addPost = () => {
-        let text = newPostElement.current.value
-        alert(text)
+
+
+    // let newPostElement: any = React.createRef()
+
+    let addMessage = () => {
+
+        props.dispatch(sendMessageAC(props.newMessageBody))
+
+        // let text = newMessageBody.currentTarget.value
+        // alert(text)
     }
+    const onNewMessageChange =(e:ChangeEvent<HTMLTextAreaElement>)=> {
+
+        props.changeNewMessageBodyCallBack(e.target.value)
+    }
+
     return (
         <div className={s.dialogs}>
 
@@ -22,17 +47,22 @@ export const Dialogs = (props:DialogPageType) => {
                 {DialogsElements}
             </div>
             <div className={s.messages}>
-                {messagesElements}
-            </div>
+                <div>{messagesElements}</div>
                 <div className={s.postsBlock}>
                     <h3>send message</h3>
                     <div>
-                        <textarea ref={newPostElement}> </textarea>
+                        <textarea
+                            value={props.newMessageBody}
+                            // ref={newPostElement}
+                            onChange={onNewMessageChange}
+                        > </textarea>
                         <div>
-                            <button onClick={addPost}>send</button>
+                            <button onClick={addMessage}>send</button>
                         </div>
+                    </div>
+                </div>
             </div>
-            </div>
+
         </div>
     );
 };

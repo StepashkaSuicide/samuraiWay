@@ -6,14 +6,13 @@ import Profile from './Components/Profile/Profile';
 import {Dialogs} from './Components/Dialogs/Dialogs';
 import {Routes, Route} from 'react-router-dom'
 import {StoreType} from './Redux/state'
-// import {RootStateType, changeNewPostText} from './Redux/state';
 
 
 type PropsType = {
     store: StoreType;
 }
 
-const App: React.FC<PropsType> = (props)=> {
+const App: React.FC<PropsType> = (props) => {
     const state = props.store.getState()
     return (
         <div className={s.appWrapper}>
@@ -28,9 +27,14 @@ const App: React.FC<PropsType> = (props)=> {
                             addPostCallBack={props.store.addPost.bind(props.store)}
                             changeNewPostTextCallBack={props.store.changeNewPostText.bind(props.store)}
                         />}/>
-                    <Route path='/dialogs*' element={
-                        <Dialogs dialogs={props.store._state.dialogsPage.dialogs}
-                                 messages={props.store._state.dialogsPage.messages}/>}/>
+                    <Route path='/dialogs/*' element={
+                        <Dialogs
+                            newMessageBody={state.dialogsPage.newMessageBody}
+                            changeNewMessageBodyCallBack={props.store.changeMessageBody.bind(props.store)}
+                            dispatch={props.store.dispatch.bind(props.store)}
+                            // changeMessageBody={props.store.changeNewMessageBody}
+                            dialogs={props.store._state.dialogsPage.dialogs}
+                            messages={props.store._state.dialogsPage.messages}/>}/>
                 </Routes>
             </div>
         </div>

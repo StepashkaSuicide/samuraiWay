@@ -9,17 +9,19 @@ type MessagesType = {
     addPostCallBack: (postText: string) => void
     changeNewPostTextCallBack: (newText: string) => void
     messageForNewText: string
-    dispatch: (action: ActionsTypes)=>void
+    dispatch: (action: ActionsTypes) => void
 }
 
 const MyPosts = (props: MessagesType) => {
 
-    let postsElement = props.posts.map(p => <Post key={p.id}
-                                                  message={p.message}
-                                                  likesCount={p.likesCount}
-                                                  id={p.id}/>)
+    let postsElement = props.posts.map(p =>
+        <Post key={p.id}
+              message={p.message}
+              likesCount={p.likesCount}
+              id={p.id}/>)
+
     let addPost = () => {
-    props.dispatch(addPostAC(props.messageForNewText))
+        props.dispatch(addPostAC(props.messageForNewText))
 
     }
 

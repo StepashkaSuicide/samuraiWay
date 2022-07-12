@@ -32,7 +32,6 @@ const App: React.FC<PropsType> = (props) => {
                             newMessageBody={state.dialogsPage.newMessageBody}
                             changeNewMessageBodyCallBack={props.store.changeMessageBody.bind(props.store)}
                             dispatch={props.store.dispatch.bind(props.store)}
-                            // changeMessageBody={props.store.changeNewMessageBody}
                             dialogs={props.store._state.dialogsPage.dialogs}
                             messages={props.store._state.dialogsPage.messages}/>}/>
                 </Routes>

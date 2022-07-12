@@ -2,7 +2,8 @@ import React, { ChangeEvent } from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogsItem';
 import Message from './Message/Message';
-import {ActionsTypes, addPostAC, DialogType, MessageType, sendMessageAC} from '../../Redux/state';
+import {ActionsTypes,  DialogType, MessageType,} from '../../Redux/state';
+import { updateNewMessageBodyAC,  sendMessageAC} from '../../Redux/dialogsReducer';
 
 
 
@@ -36,8 +37,8 @@ export const Dialogs = (props: DialogsPropsType) => {
         // alert(text)
     }
     const onNewMessageChange =(e:ChangeEvent<HTMLTextAreaElement>)=> {
-
-        props.changeNewMessageBodyCallBack(e.target.value)
+        props.dispatch(updateNewMessageBodyAC(e.currentTarget.value))
+        // props.changeNewMessageBodyCallBack(e.target.value) props.newMessageBody
     }
 
     return (

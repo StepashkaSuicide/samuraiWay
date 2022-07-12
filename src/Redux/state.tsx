@@ -1,8 +1,5 @@
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
-const SEND_MESSAGE = 'SEND_MESSAGE';
-
+import {addPostAC, changeNewTextAC, profileReducer} from './profileReducer';
+import {dialogsReducer, sendMessageAC, updateNewMessageBodyAC} from './dialogsReducer';
 
 export type MessageType = {
     id: number
@@ -38,7 +35,6 @@ export type RootStateType = {
 
 export type StoreType = {
     _state: RootStateType
-    // changeNewMessageBody: (bodyUpdate: string)=> void
     changeNewPostText: (newText: string) => void
     changeMessageBody: (body: string) => void
     addPost: (newPost: string) => void
@@ -49,39 +45,7 @@ export type StoreType = {
 }
 
 
-//Action Creators -------------------------------------------------
 
-export type ActionsTypes = ReturnType<typeof addPostAC> |
-    ReturnType<typeof changeNewTextAC> |
-    ReturnType<typeof updateNewMessageBodyAC> |
-    ReturnType<typeof sendMessageAC>
-
-export const addPostAC = (postText: string) => {
-    return {
-        type: ADD_POST,
-        postText: postText
-    } as const
-}
-export const changeNewTextAC = (newText: string) => {
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        newText: newText
-    } as const
-}
-export const updateNewMessageBodyAC = (body: string) => {
-    return {
-        type: UPDATE_NEW_MESSAGE_BODY,
-        body: body
-    } as const
-}
-export const sendMessageAC = (body: string) => {
-    return {
-        type: SEND_MESSAGE,
-        sendBody: body
-    } as const
-}
-
-//Action Creators -------------------------------------------------
 export let store: StoreType = {
     _state: {
         profilePage: {
@@ -145,48 +109,20 @@ export let store: StoreType = {
     },
 
     dispatch(action) {
-        if (action.type === ADD_POST) {
-            const newPost: PostType = {
-                id: 6,
-                message: action.postText,
-                likesCount: 0,
-            }
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.messageForNewText = ''
-            this._callSubscriber(this._state)
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.messageForNewText = action.newText
-            this._callSubscriber(this._state)
-
-        } else if (action.type === SEND_MESSAGE) {
-            const body = this._state.dialogsPage.newMessageBody
-            this._state.dialogsPage.messages.push({id: 44, message: body})
-            this._state.dialogsPage.newMessageBody = ''
-            this._callSubscriber(this._state)
-        } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-            this._state.dialogsPage.newMessageBody = action.body
-            this._callSubscriber(this._state)
-        }
-
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._callSubscriber(this._state)
     }
 }
+//Action Creators -------------------------------------------------
 
+export type ActionsTypes = ReturnType<typeof addPostAC> |
+    ReturnType<typeof changeNewTextAC> |
+    ReturnType<typeof updateNewMessageBodyAC> |
+    ReturnType<typeof sendMessageAC>
+//Action Creators -------------------------------------------------
 
 export default store
-
-
-//
-// } else if (action.type === SEND_MESSAGE) {
-//     const bodyUpdate = this._state.dialogsPage.newMessageBody
-//     const newMessage: MessageType = {id: 44, message: bodyUpdate}
-//     this._state.dialogsPage.messages.push(newMessage)
-//     this._state.dialogsPage.newMessageBody = ''
-//     this._callSubscriber(this._state)
-//
-// } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-//     this._state.dialogsPage.newMessageBody = action.bodyUpdate
-//     this._callSubscriber(this._state)
-// }
 
 
 

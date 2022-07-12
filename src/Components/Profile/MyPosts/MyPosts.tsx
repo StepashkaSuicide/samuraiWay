@@ -27,6 +27,7 @@ const MyPosts = (props: MessagesType) => {
     }
 
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        // props.dispatch(changeNewTextAC(e.currentTarget.value))
         props.changeNewPostTextCallBack(e.currentTarget.value)
     }
     return (

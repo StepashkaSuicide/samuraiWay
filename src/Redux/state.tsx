@@ -79,13 +79,13 @@ export let store: StoreType = {
         console.log('hello')
     },
 
-    changeNewPostText(newText: string) {
-        this._state.profilePage.messageForNewText = newText
+    changeNewPostText(newTextPost: string) {
+        this._state.profilePage.messageForNewText = newTextPost
         this._callSubscriber(this._state)
     },
 
-    changeMessageBody(body: string) {
-        this._state.dialogsPage.newMessageBody = body
+    changeMessageBody(newTextMessage: string) {
+        this._state.dialogsPage.newMessageBody = newTextMessage
         this._callSubscriber(this._state)
     },
 

@@ -37,8 +37,9 @@ export const Dialogs = (props: DialogsPropsType) => {
         // alert(text)
     }
     const onNewMessageChange =(e:ChangeEvent<HTMLTextAreaElement>)=> {
-        props.dispatch(updateNewMessageBodyAC(e.currentTarget.value))
-        // props.changeNewMessageBodyCallBack(e.target.value) props.newMessageBody
+        // props.dispatch(updateNewMessageBodyAC(props.newMessageBody))
+        props.changeNewMessageBodyCallBack(e.currentTarget.value)
+        // props.newMessageBody
     }
 
     return (

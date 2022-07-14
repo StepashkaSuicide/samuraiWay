@@ -4,12 +4,12 @@ import DialogItem from './DialogItem/DialogsItem';
 import Message from './Message/Message';
 import {ActionsTypes, DialogType, MessageType, StoreType,} from '../../Redux/reduxStore';
 import { updateNewMessageBodyAC,  sendMessageAC} from '../../Redux/dialogsReducer';
+import {Dialogs} from './Dialogs';
 
 
 
 type DialogsPropsType = {
     store: StoreType
-
     // dialogs: Array<DialogType>
     // messages: Array<MessageType>
     // changeNewMessageBodyCallBack: (body: string) => void
@@ -21,7 +21,7 @@ type DialogsPropsType = {
 
 
 
-export const Dialogs = (props: DialogsPropsType) => {
+export const DialogsContainer = (props: DialogsPropsType) => {
 
     const state = props.store.getState().dialogsPage
 
@@ -31,39 +31,18 @@ export const Dialogs = (props: DialogsPropsType) => {
         <Message key={m.id} message={m.message} id={m.id}/>
     )
 
-    let addMessage = () => {
 
+    // let newPostElement: any = React.createRef()
+
+    let addMessage = () => {
         props.store.dispatch(sendMessageAC(state.newMessageBody))
     }
     const onNewMessageChange =(e:ChangeEvent<HTMLTextAreaElement>)=> {
-        props.store.changeMessageBody(e.currentTarget.value)
-        // props.dispatch(updateNewMessageBodyAC(props.newMessageBody))
-        // props.newMessageBody
+        props.store.dispatch(updateNewMessageBodyAC(e.currentTarget.value))
     }
 
     return (
-        <div className={s.dialogs}>
-
-            <div className={s.dialogsItems}>
-                {DialogsElements}
-            </div>
-            <div className={s.messages}>
-                <div>{messagesElements}</div>
-                <div className={s.postsBlock}>
-                    <h3>send message</h3>
-                    <div>
-                        <textarea
-                            value={state.newMessageBody}
-                            onChange={onNewMessageChange}
-                        > </textarea>
-                        <div>
-                            <button onClick={addMessage}>send</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    );
+        <Dialogs store={props.store} />
+    )
 };
 

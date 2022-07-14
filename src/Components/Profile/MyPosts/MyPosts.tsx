@@ -1,16 +1,18 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import {ActionsTypes,  PostType} from '../../../Redux/state';
-import { addPostAC,  changeNewTextAC} from '../../../Redux/profileReducer';
+import {ActionsTypes, PostType} from '../../../Redux/reduxStore';
+import {changeNewTextAC} from '../../../Redux/profileReducer';
 
 
 type MessagesType = {
+    onPostChange:(e: ChangeEvent<HTMLTextAreaElement>)=> void
     posts: Array<PostType>
-    addPostCallBack: (postText: string) => void
+    addPost: ()=> void
+    // addPostCallBack: (postText: string) => void
     changeNewPostTextCallBack: (newText: string) => void
     messageForNewText: string
-    dispatch: (action: ActionsTypes) => void
+    // dispatch: (action: ActionsTypes) => void
 }
 
 const MyPosts = (props: MessagesType) => {
@@ -21,8 +23,9 @@ const MyPosts = (props: MessagesType) => {
               likesCount={p.likesCount}
               id={p.id}/>)
 
-    let addPost = () => {
-        props.dispatch(addPostAC(props.messageForNewText))
+    let onAddPost = () => {
+        props.addPost()
+        // props.dispatch(addPostAC(props.messageForNewText))
 
     }
 
@@ -39,7 +42,7 @@ const MyPosts = (props: MessagesType) => {
                     onChange={onPostChange}
                 > </textarea>
                 <div>
-                    <button onClick={addPost}>add post</button>
+                    <button onClick={onAddPost}>add post</button>
                 </div>
             </div>
             <div className={s.posts}>

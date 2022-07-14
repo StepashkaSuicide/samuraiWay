@@ -1,7 +1,7 @@
 import React from 'react';
 import s from "./../Dialogs.module.css";
 import {Link} from "react-router-dom";
-import {DialogType} from "../../../Redux/state";
+import {DialogType} from "../../../Redux/reduxStore";
 
 
 const DialogItem =  (props: DialogType) => {

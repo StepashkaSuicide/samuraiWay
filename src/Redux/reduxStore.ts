@@ -38,6 +38,7 @@ export type RootStateType = {
 
 export type StoreType = {
     _state: RootStateType
+    // addMessage: ()=> void
     changeNewPostText: (newText: string) => void
     changeMessageBody: (body: string) => void
     addPost: (newPost: string) => void

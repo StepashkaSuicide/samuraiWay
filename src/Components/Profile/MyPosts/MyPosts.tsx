@@ -6,7 +6,7 @@ import {changeNewTextAC} from '../../../Redux/profileReducer';
 
 
 type MessagesType = {
-    onPostChange:(e: ChangeEvent<HTMLTextAreaElement>)=> void
+    onPostChange:(newText: string)=> void
     posts: Array<PostType>
     addPost: ()=> void
     // addPostCallBack: (postText: string) => void
@@ -31,7 +31,7 @@ const MyPosts = (props: MessagesType) => {
 
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         // props.dispatch(changeNewTextAC(e.currentTarget.value))
-        props.changeNewPostTextCallBack(e.currentTarget.value)
+        props.onPostChange(e.currentTarget.value)
     }
     return (
         <div className={s.postsBlock}>

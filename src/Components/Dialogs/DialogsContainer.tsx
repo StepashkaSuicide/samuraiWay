@@ -15,8 +15,6 @@ type DialogsPropsType = {
     // changeNewMessageBodyCallBack: (body: string) => void
     // dispatch: (action: ActionsTypes) => void
     // newMessageBody: string
-
-
 }
 
 
@@ -25,24 +23,19 @@ export const DialogsContainer = (props: DialogsPropsType) => {
 
     const state = props.store.getState().dialogsPage
 
-    let DialogsElements = state.dialogs.map(d =>
-        <DialogItem key={d.id} message={d.message} id={d.id}/>);
-    let messagesElements = state.messages.map(m =>
-        <Message key={m.id} message={m.message} id={m.id}/>
-    )
-
-
-    // let newPostElement: any = React.createRef()
-
     let addMessage = () => {
         props.store.dispatch(sendMessageAC(state.newMessageBody))
     }
-    const onNewMessageChange =(e:ChangeEvent<HTMLTextAreaElement>)=> {
-        props.store.dispatch(updateNewMessageBodyAC(e.currentTarget.value))
+    const onNewMessageChange =(body: string)=> {
+        props.store.dispatch(updateNewMessageBodyAC(body))
     }
 
     return (
-        <Dialogs store={props.store} />
+        <Dialogs store={props.store}
+                 addMessage={addMessage}
+                 onNewMessageChange={onNewMessageChange}
+                 dialogsPage={state}
+        />
     )
 };
 

@@ -1,4 +1,4 @@
-import {ActionsTypes, DialogPageType} from './reduxStore';
+import {ActionsTypes} from './reduxStore';
 
 export const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
@@ -12,7 +12,7 @@ export const updateNewMessageBodyAC = (body: string) => {
 export const sendMessageAC = (body: string) => {
     return {
         type: SEND_MESSAGE,
-        sendBody: body
+        body: body
     } as const
 }
 
@@ -35,17 +35,15 @@ const initialState = {
 }
 
 export const dialogsReducer = (state=initialState, action: ActionsTypes) => {
-
-
     switch (action.type) {
         case SEND_MESSAGE:
             const body = state.newMessageBody
             state.messages.push({id: 44, message: body})
             state.newMessageBody = ''
-            break;
+            return state
         case UPDATE_NEW_MESSAGE_BODY:
             state.newMessageBody = action.body
-            break;
+            return state
         default:
             return state
     }

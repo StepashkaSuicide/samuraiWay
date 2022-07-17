@@ -10,22 +10,22 @@ type MessagesType = {
 
 const MyPostsContainer = (props: MessagesType) => {
 
-    const state = props.store.getState()
+    const state = props.store.getState().profilePage
     let addPost = () => {
-        props.store.dispatch(addPostAC(state.profilePage.messageForNewText))
+        props.store.dispatch(addPostAC(state.messageForNewText))
     }
 
-    let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.store.dispatch(changeNewTextAC(e.currentTarget.value))
+    let onPostChange = (newText: string) => {
+        props.store.dispatch(changeNewTextAC(newText))
         // props.changeNewPostTextCallBack(e.currentTarget.value)
     }
     return (
         <MyPosts
             addPost={addPost}
             onPostChange={onPostChange}
-            posts={state.profilePage.posts}
+            posts={state.posts}
             changeNewPostTextCallBack={props.store.changeNewPostText}
-            messageForNewText={state.profilePage.messageForNewText}
+            messageForNewText={state.messageForNewText}
             // addPostCallBack={props.addPostCallBack}
             // dispatch={props.store.dispatch}
         />

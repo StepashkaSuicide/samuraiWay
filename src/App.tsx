@@ -6,6 +6,7 @@ import Profile from './Components/Profile/Profile';
 import {Dialogs} from './Components/Dialogs/Dialogs';
 import {Routes, Route} from 'react-router-dom'
 import {ActionsTypes, RootStateType, StoreType} from './Redux/reduxStore'
+import { DialogsContainer } from './Components/Dialogs/DialogsContainer';
 
 
 type PropsType = {
@@ -31,8 +32,10 @@ const App: React.FC<PropsType> = (props) => {
                             // profilePage={state.profilePage}
                         />}/>
                     <Route path='/dialogs/*' element={
-                        <Dialogs
+                        <DialogsContainer
                             store={props.store}
+                            // addMessage={props.store.addMessage}
+                            // onNewMessageChange={props.store.changeMessageBody}
                             // changeNewMessageBodyCallBack={props.store.changeMessageBody.bind(props.store)}
                             // dispatch={props.store.dispatch.bind(props.store)}
                             // newMessageBody={state.dialogsPage.newMessageBody}

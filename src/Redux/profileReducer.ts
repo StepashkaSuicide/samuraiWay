@@ -38,10 +38,10 @@ export const profileReducer = (state=initialState, action: ActionsTypes) => {
             }
             state.posts.push(newPost)
             state.messageForNewText = ''
-            break;
+            return state;
         case UPDATE_NEW_POST_TEXT:
             state.messageForNewText = action.newText
-            break;
+            return state;
         default:
             return state
     }

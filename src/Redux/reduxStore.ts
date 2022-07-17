@@ -1,36 +1,11 @@
 import {combineReducers, createStore} from 'redux';
-import {addPostAC, changeNewTextAC, profileReducer} from './profileReducer';
-import {dialogsReducer, sendMessageAC, updateNewMessageBodyAC} from './dialogsReducer';
+import {addPostAC, changeNewTextAC, ProfilePageType, profileReducer} from './profileReducer';
+import {DialogPageType, dialogsReducer, sendMessageAC, updateNewMessageBodyAC} from './dialogsReducer';
 
 
 
-export type MessageType = {
-    id: number
-    message: string
-
-}
-export type DialogType = {
-    id: number
-    message: string
-
-}
-export type PostType = {
-    id: number
-    message: string
-    likesCount: number
-}
-export type ProfilePageType = {
-    posts: Array<PostType>
-    messageForNewText: string
-}
 
 
-export type DialogPageType = {
-    dialogs: Array<DialogType>
-    messages: Array<MessageType>
-    newMessageBody: string
-
-}
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogPageType
@@ -38,7 +13,6 @@ export type RootStateType = {
 
 export type StoreType = {
     _state: RootStateType
-    // addMessage: ()=> void
     changeNewPostText: (newText: string) => void
     changeMessageBody: (body: string) => void
     addPost: (newPost: string) => void
@@ -53,8 +27,16 @@ export type ActionsTypes = ReturnType<typeof addPostAC> |
     ReturnType<typeof updateNewMessageBodyAC> |
     ReturnType<typeof sendMessageAC>
 
-const reducers = combineReducers({
+
+
+
+const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer
 })
-export const store: StoreType = createStore(reducers)
+
+export type AppStateType = ReturnType<typeof rootReducer> //ипортировать в контейнерные компоненты
+
+export const store = createStore(rootReducer)
+
+

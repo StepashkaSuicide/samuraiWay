@@ -1,6 +1,6 @@
 import React from 'react';
+import { MessageType } from '../../../Redux/dialogsReducer';
 import s from "./../Dialogs.module.css";
-import {MessageType} from "../../../Redux/reduxStore";
 
 
 

@@ -9,12 +9,37 @@ export const updateNewMessageBodyAC = (body: string) => {
         body: body
     } as const
 }
-export const sendMessageAC = (body: string) => {
+export const sendMessageAC = () => {
     return {
         type: SEND_MESSAGE,
-        body: body
+        // body: body
     } as const
 }
+export type MessageType = {
+    id: number
+    message: string
+
+}
+
+
+export type DialogType = {
+    id: number
+    message: string
+
+}
+
+export type DialogPageType = {
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
+    newMessageBody: string
+
+}
+
+
+
+
+
+export type initialStateType = typeof initialState
 
 const initialState = {
         dialogs: [
@@ -23,18 +48,19 @@ const initialState = {
             {id: 3, message: 'Sveta'},
             {id: 4, message: 'JijaBass'},
             {id: 5, message: 'Artem'},
-        ],
+        ] as Array<DialogType>,
         messages: [
             {id: 1, message: 'Hi'},
             {id: 2, message: 'Bye'},
             {id: 3, message: 'Helloy'},
             {id: 4, message: 'Yo'},
             {id: 5, message: 'gg'},
-        ],
+        ] as Array<MessageType>,
         newMessageBody: ''
 }
 
-export const dialogsReducer = (state=initialState, action: ActionsTypes) => {
+
+export const dialogsReducer = (state=initialState, action: ActionsTypes):initialStateType => {
     switch (action.type) {
         case SEND_MESSAGE:
             const body = state.newMessageBody

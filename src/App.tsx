@@ -3,20 +3,17 @@ import s from './App.module.css';
 import Header from './Components/Header/Header';
 import NavBar from './Components/Navbar/Navbar';
 import Profile from './Components/Profile/Profile';
-import {Dialogs} from './Components/Dialogs/Dialogs';
-import {Routes, Route} from 'react-router-dom'
-import {ActionsTypes, RootStateType, StoreType} from './Redux/reduxStore'
-import { DialogsContainer } from './Components/Dialogs/DialogsContainer';
+import {Route, Routes} from 'react-router-dom'
+import {DialogsContainer} from './Components/Dialogs/DialogsContainer';
 
 
 type PropsType = {
-    store: StoreType;
-    state: RootStateType
-    dispatch: (action: ActionsTypes) => void
+    // store: StoreType;
+    // state: RootStateType
+    // dispatch: (action: ActionsTypes) => void
 }
 
 const App: React.FC<PropsType> = (props) => {
-    const state = props.store.getState()
     return (
         <div className={s.appWrapper}>
             <Header/>
@@ -25,7 +22,7 @@ const App: React.FC<PropsType> = (props) => {
                 <Routes>
                     <Route path='/profile' element={
                         <Profile
-                            store={props.store}
+                            // store={props.store}
                             // dispatch={props.store.dispatch.bind(props.store)}
                             // addPostCallBack={props.store.addPost.bind(props.store)}
                             // changeNewPostTextCallBack={props.store.changeNewPostText.bind(props.store)}
@@ -33,7 +30,7 @@ const App: React.FC<PropsType> = (props) => {
                         />}/>
                     <Route path='/dialogs/*' element={
                         <DialogsContainer
-                            store={props.store}
+                            // store={props.store}
                             // addMessage={props.store.addMessage}
                             // onNewMessageChange={props.store.changeMessageBody}
                             // changeNewMessageBodyCallBack={props.store.changeMessageBody.bind(props.store)}

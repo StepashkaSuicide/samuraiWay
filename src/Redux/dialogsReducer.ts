@@ -1,3 +1,4 @@
+import { v1 } from 'uuid';
 import {ActionsTypes} from './reduxStore';
 
 export const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
@@ -12,19 +13,18 @@ export const updateNewMessageBodyAC = (body: string) => {
 export const sendMessageAC = () => {
     return {
         type: SEND_MESSAGE,
-        // body: body
     } as const
 }
 export type MessageType = {
-    id: number
+    id: string
     message: string
 
 }
 
 
 export type DialogType = {
-    id: number
-    message: string
+    id: string
+    name: string
 
 }
 
@@ -35,41 +35,44 @@ export type DialogPageType = {
 
 }
 
-
-
-
-
 export type initialStateType = typeof initialState
 
 const initialState = {
-        dialogs: [
-            {id: 1, message: 'Dimych'},
-            {id: 2, message: 'Linklenia'},
-            {id: 3, message: 'Sveta'},
-            {id: 4, message: 'JijaBass'},
-            {id: 5, message: 'Artem'},
-        ] as Array<DialogType>,
-        messages: [
-            {id: 1, message: 'Hi'},
-            {id: 2, message: 'Bye'},
-            {id: 3, message: 'Helloy'},
-            {id: 4, message: 'Yo'},
-            {id: 5, message: 'gg'},
-        ] as Array<MessageType>,
-        newMessageBody: ''
+    dialogs: [
+        {id: v1(), name: 'Dimych'},
+        {id: v1(), name: 'Linklenia'},
+        {id: v1(), name: 'Sveta'},
+        {id: v1(), name: 'JijaBass'},
+        {id: v1(), name: 'Artem'},
+    ] as Array<DialogType>,
+    messages: [
+        {id: v1(), message: 'Hi'},
+        {id: v1(), message: 'Bye'},
+        {id: v1(), message: 'Helloy'},
+        {id: v1(), message: 'Yo'},
+        {id: v1(), message: 'gg'},
+    ] as Array<MessageType>,
+    newMessageBody: ''
 }
 
 
-export const dialogsReducer = (state=initialState, action: ActionsTypes):initialStateType => {
+export const dialogsReducer = (state: initialStateType = initialState, action: ActionsTypes): initialStateType => {
+
     switch (action.type) {
         case SEND_MESSAGE:
-            const body = state.newMessageBody
-            state.messages.push({id: 44, message: body})
-            state.newMessageBody = ''
-            return state
+            const messageID = v1()
+            let newMessage = {id: messageID, message: state.newMessageBody}
+
+            return {
+                ...state,
+                messages: [newMessage, ...state.messages],
+                newMessageBody: ''
+            }
         case UPDATE_NEW_MESSAGE_BODY:
-            state.newMessageBody = action.body
-            return state
+            return {
+                ...state,
+                newMessageBody: action.body
+        }
         default:
             return state
     }

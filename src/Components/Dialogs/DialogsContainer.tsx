@@ -6,53 +6,26 @@ import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 
 
-// type DialogsPropsType = {
-//     store: StoreType
-// }
 
-// type MapStateToPropsType = {
-//
-// }
-// // dispatch: Dispatch  типизация
-// export const DialogsContainer1 = () => {
-//
-//     const state = props.store.getState().dialogsPage
-//
-//     let addMessage = () => {
-//         props.store.dispatch(sendMessageAC(state.newMessageBody))
-//     }
-//     const onNewMessageChange =(body: string)=> {
-//         props.store.dispatch(updateNewMessageBodyAC(body))
-//     }
-//
-//     return (
-//         <Dialogs store={props.store}
-//                  addMessage={addMessage}
-//                  onNewMessageChange={onNewMessageChange}
-//                  dialogsPage={state}
-//         />
-//     )
-// };
-
-export type MapStateToPropsType = {
+export type MapStatePropsType = {
     dialogsPage: DialogPageType
 }
-export type mapDispatchToPropsType = {
+export type mapDispatchPropsType = {
     addMessage: ()=>void
     onNewMessageChange: (body: string)=> void
     }
 
-export type AllMapDisToPropsType = MapStateToPropsType & mapDispatchToPropsType
+export type AllMapDisToPropsType = MapStatePropsType & mapDispatchPropsType
 
 
 
 
-const mapStateToProps = (state: AppStateType):MapStateToPropsType => {
+const mapStateToProps = (state: AppStateType):MapStatePropsType => {
     return {
         dialogsPage: state.dialogsPage
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch):mapDispatchToPropsType => {
+const mapDispatchToProps = (dispatch: Dispatch):mapDispatchPropsType => {
     return {
         addMessage: () => {
             dispatch(sendMessageAC())

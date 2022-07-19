@@ -1,51 +1,33 @@
 import React from 'react';
-import {AppStateType} from '../../../Redux/reduxStore';
-import {addPostAC, changeNewTextAC} from '../../../Redux/profileReducer';
+import {addPostAC, changeNewTextAC, PostType} from '../../../Redux/profileReducer';
 import MyPosts from './MyPosts';
 import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
+import {AppStateType} from '../../../Redux/reduxStore';
 
 
-// type MessagesType = {
-//     store: StoreType
-// }
+export type mapStatePropsType = {
+    posts: Array<PostType>
+    messageForNewText: string
+}
+export type mapDispatchPropsType = {
+    addPost: ()=>void
+    onPostChange:(newText: string)=> void
+}
 
-// const MyPostsContainer = () => {
-//
-//     // const state = store.getState().profilePage
-//     let addPost = () => {
-//         props.store.dispatch(addPostAC(state.messageForNewText))
-//     }
-//
-//     let onPostChange = (newText: string) => {
-//         props.store.dispatch(changeNewTextAC(newText))
-//     }
-//     return (
-//         <MyPosts
-//             addPost={addPost}
-//             onPostChange={onPostChange}
-//             posts={state.posts}
-//             changeNewPostTextCallBack={props.store.changeNewPostText}
-//             messageForNewText={state.messageForNewText}
-//
-//         />
-//
-//     );
-// };
-//
-// export default MyPostsContainer;
+export type MyPostContainerType = mapStatePropsType & mapDispatchPropsType
 
 
 
+const mapStateToProps = (state: AppStateType):mapStatePropsType  => {
 
-const mapStateToProps = (state: AppStateType) => {
     return {
         posts: state.profilePage.posts,
         messageForNewText: state.profilePage.messageForNewText
 
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
     return {
         addPost: () => {
             dispatch(addPostAC())

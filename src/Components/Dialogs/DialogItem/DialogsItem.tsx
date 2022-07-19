@@ -8,7 +8,7 @@ const DialogItem =  (props: DialogType) => {
     let path = '/dialogs/' + props.id
     return (
         <div className={s.dialog}>
-            <Link to={path}> {props.message} </Link>
+            <Link to={path}> {props.name} </Link>
         </div>
     )
 };

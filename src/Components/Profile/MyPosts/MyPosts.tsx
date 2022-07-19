@@ -1,18 +1,19 @@
 import React, {ChangeEvent} from 'react';
-import { PostType } from '../../../Redux/profileReducer';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
+import {MyPostContainerType} from './MyPostsContainer';
 
 
-type MessagesType = {
-    onPostChange:(newText: string)=> void
-    posts: Array<PostType>
-    addPost: ()=> void
-    // changeNewPostTextCallBack: (newText: string) => void
-    messageForNewText: string
-}
+// type MessagesType = {
+//     onPostChange:(newText: string)=> void
+//     posts: Array<PostType>
+//     addPost: ()=> void
+//     // changeNewPostTextCallBack: (newText: string) => void
+//     messageForNewText: string
+// }
 
-const MyPosts = (props: MessagesType) => {
+
+const MyPosts = (props: MyPostContainerType) => {
 
     let postsElement = props.posts.map(p =>
         <Post key={p.id}

@@ -1,60 +1,59 @@
 import React from 'react';
 import {AllMapDisPropsType} from './UsersContainer';
 import s from './users.module.css'
-import {v1} from 'uuid';
+import axios from 'axios';
+import userPhoto from './../../assets/user1.jpg'
 
-export const Users = (props: AllMapDisPropsType) => {
 
-    const photoURL= 'https://cdn-icons-png.flaticon.com/512/21/21104.png'
-    if (props.users.length===0){
-        props.setUsers([{
-            id: v1(),
-            photoURL: photoURL,
-            followed: false,
-            fullName: 'JEKA',
-            status: 'boss',
-            location: {city: 'Oryol', country: 'Russia'}
-        },
-            {
-                id: v1(),
-                followed: true,
-                photoURL: photoURL,
-                fullName: 'LEXA',
-                status: 'litle boss',
-                location: {city: 'Moscow', country: 'Russia'}
-            },
-            {
-                id: v1(),
-                followed: false,
-                photoURL: photoURL,
-                fullName: 'MAX',
-                status: ' ne boss',
-                location: {city: 'SP', country: 'Russia'}
-            },
-            {
-                id: v1(),
-                followed: true,
-                photoURL: photoURL,
-                fullName: 'DIMYCH',
-                status: 'hard boss',
-                location: {city: 'Minsk', country: 'Belarus'}
-            },])
+export class Users extends React.Component<AllMapDisPropsType> {
+
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items)
+        })
     }
 
-    const unfollowHandler = (userID: string) => {
-        props.follow(userID)
-    }
-    const followHandler = (userID: string) => {
-        props.unfollow(userID)
-    }
 
-    return (
-        <div>
-            {props.users.map(t =>
-                <div key={t.id}>
+
+
+    onPageChanged = (pageNumber: number)=> {
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items)
+            this.props.setTotalUsersCount(response.data.totalCount)
+        })
+}
+
+    render(): React.ReactNode {
+
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+        let pages = []
+        for (let i = 1; i <= pagesCount; i++) {
+            if (pages.length < 12) {
+                pages.push(i)
+            }
+        }
+
+        const unfollowHandler = (userID: string) => {
+            this.props.follow(userID)
+        }
+        const followHandler = (userID: string) => {
+            this.props.unfollow(userID)
+        }
+        return (
+            <div>
+                <div>
+                    {pages.map(t => {
+                       return <span key={t} className={this.props.currentPage === t ? s.selectedPage:''}
+                                    onClick={(e)=>{this.onPageChanged(t)}}>
+                            {t}</span>
+                    })}
+                </div>
+                {this.props.users.map(t =>
+                    <div key={t.id}>
                 <span>
                     <div>
-                    <img className={s.ava} src={t.photoURL} alt="photo"/>
+                    <img className={s.ava} src={t.photos.small !== null ? t.photos.small : userPhoto} alt="photo"/>
                     </div>
                     <div>
                         {
@@ -63,17 +62,25 @@ export const Users = (props: AllMapDisPropsType) => {
                                 : <button onClick={() => followHandler(t.id)}>Follow</button>}
                     </div>
                 </span>
-                    <span>
+                        <span>
                      <span>
-                        <div>{t.fullName}</div>
+                        <div>{t.name}</div>
                          <div>{t.status}</div>
                     </span>
                     <span>
-                        <div>{t.location.country}</div>
-                        <div>{t.location.city}</div>
+                        <div>{'country'}</div>
+                        <div>{'city'}</div>
                     </span>
                 </span>
-                </div>)}
-        </div>
-    );
-};
+                    </div>)}
+            </div>
+        );
+    }
+}
+
+
+
+
+
+
+

@@ -1,5 +1,8 @@
 .ava {
-    border: 4px solid white;
+    border: 4px solid #fab412;
     border-radius: 50%;
     width: 70px;
+}
+.selectedPage {
+    font-weight:  bold ;
 }

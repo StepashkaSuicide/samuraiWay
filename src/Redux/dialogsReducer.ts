@@ -1,18 +1,23 @@
 import { v1 } from 'uuid';
-import {ActionsTypes} from './reduxStore';
+import {addPostAC, changeNewTextAC} from './profileReducer';
 
-export const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
-export const SEND_MESSAGE = 'SEND_MESSAGE';
+
+
+
+export type DialogsReducerType =
+    ReturnType<typeof updateNewMessageBodyAC> |
+    ReturnType<typeof sendMessageAC>
+
 
 export const updateNewMessageBodyAC = (body: string) => {
     return {
-        type: UPDATE_NEW_MESSAGE_BODY,
+        type: 'update_new_message_body',
         body: body
     } as const
 }
 export const sendMessageAC = () => {
     return {
-        type: SEND_MESSAGE,
+        type: 'send_message',
     } as const
 }
 export type MessageType = {
@@ -56,10 +61,10 @@ const initialState = {
 }
 
 
-export const dialogsReducer = (state: initialStateType = initialState, action: ActionsTypes): initialStateType => {
+export const dialogsReducer = (state: initialStateType = initialState, action: DialogsReducerType): initialStateType => {
 
     switch (action.type) {
-        case SEND_MESSAGE:
+        case 'send_message':
             const messageID = v1()
             let newMessage = {id: messageID, message: state.newMessageBody}
 
@@ -68,7 +73,7 @@ export const dialogsReducer = (state: initialStateType = initialState, action: A
                 messages: [newMessage, ...state.messages],
                 newMessageBody: ''
             }
-        case UPDATE_NEW_MESSAGE_BODY:
+        case 'update_new_message_body':
             return {
                 ...state,
                 newMessageBody: action.body

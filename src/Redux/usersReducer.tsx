@@ -1,26 +1,27 @@
-import {ActionsTypes} from './reduxStore';
-
-
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET_USERS';
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
-const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
+export type UsersReducerType  = ReturnType<typeof followAC>
+|  ReturnType<typeof unfollowAC>
+|  ReturnType<typeof setUsersAC>
+|  ReturnType<typeof setCurrentPageAC>
+|  ReturnType<typeof setTotalUsersCountAC>
+|  ReturnType<typeof onPageChangedAC>
 
 export const followAC = (userID: string) => {
-    return {type: FOLLOW, userID} as const
+    return {type: 'follow', userID} as const
 }
 export const unfollowAC = (userID: string) => {
-    return {type: UNFOLLOW, userID} as const
+    return {type: 'unfollow', userID} as const
 }
 export const setUsersAC = (users: Array<UserType>) => {
-    return {type: SET_USERS, users} as const
+    return {type: 'set_users', users} as const
 }
 export const setCurrentPageAC = (currentPage: number) => {
-    return {type: SET_CURRENT_PAGE, currentPage} as const
+    return {type: 'set_current_page', currentPage} as const
 }
 export const setTotalUsersCountAC = (totalCount: number) => {
-    return {type: SET_TOTAL_USERS_COUNT, totalCount} as const
+    return {type: 'set_total_users_count', totalCount} as const
+}
+export const onPageChangedAC = (pageNumber: number) => {
+    return {type: 'on_page_changed', pageNumber} as const
 }
 
 
@@ -50,37 +51,43 @@ export type UsersType = {
 
 const initialState = {
     users: [] as Array<UserType>,
-    pageSize: 10,
+    pageSize: 5,
     totalUsersCount: 33,
-    currentPage: 2,
+    currentPage: 1,
+
 
 }
 
 
-export const usersReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
+export const usersReducer = (state: InitialStateType = initialState, action: UsersReducerType): InitialStateType => {
     switch (action.type) {
-        case FOLLOW:
+        case 'follow':
             return {
                 ...state,
                 users: state.users.map(t => t.id === action.userID ? {...t, followed: false} : t)
             }
-        case UNFOLLOW:
+        case 'unfollow':
             return {
                 ...state,
                 users: state.users.map(t => t.id === action.userID ? {...t, followed: true} : t)
             }
-        case SET_USERS:
+        case 'set_users':
             return {
                 ...state, users: action.users
             }
-        case SET_CURRENT_PAGE:
+        case 'set_current_page':
             return {
                 ...state,
                 currentPage: action.currentPage
             }
-        case SET_TOTAL_USERS_COUNT:
+        case 'set_total_users_count':
             return {
                 ...state, totalUsersCount: action.totalCount
+            }
+        case 'on_page_changed':
+            return {
+                ...state, currentPage: action.pageNumber
+
             }
         default:
             return state

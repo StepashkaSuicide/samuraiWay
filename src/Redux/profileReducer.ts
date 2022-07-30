@@ -1,21 +1,19 @@
 import {v1} from 'uuid';
-import {ActionsTypes} from './reduxStore';
 
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+export type ProfileReducerType = ReturnType<typeof addPostAC> |
+    ReturnType<typeof changeNewTextAC>
 
 export const addPostAC = () => {
     return {
-        type: ADD_POST,
+        type: 'add_post',
     } as const
 }
 export const changeNewTextAC = (newText: string) => {
     return {
-        type: UPDATE_NEW_POST_TEXT,
+        type: 'update_new_post_text',
         newText: newText
     } as const
 }
-
 
 export type PostType = {
     id: string
@@ -41,9 +39,9 @@ const initialState = {
 }
 
 
-export const profileReducer = (state: initialStateType = initialState, action: ActionsTypes): initialStateType => {
+export const profileReducer = (state: initialStateType = initialState, action: ProfileReducerType): initialStateType => {
     switch (action.type) {
-        case ADD_POST:
+        case 'add_post':
             const postID = v1()
             const newPost: PostType = {
                 id: postID,
@@ -55,7 +53,7 @@ export const profileReducer = (state: initialStateType = initialState, action: A
                 posts: [newPost, ...state.posts],
                 messageForNewText: ''
             }
-        case UPDATE_NEW_POST_TEXT:
+        case 'update_new_post_text':
             return {
                 ...state,
                 messageForNewText: action.newText
@@ -65,4 +63,3 @@ export const profileReducer = (state: initialStateType = initialState, action: A
     }
 }
 
-// state.action.postText

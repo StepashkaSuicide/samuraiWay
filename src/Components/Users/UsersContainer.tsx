@@ -47,7 +47,7 @@ export class UsersContainer1 extends React.Component<AllMapDisPropsType> {
         })
     }
     render(): React.ReactNode {
-        return <Users />
+        return <Users
 
             onPageChanged={this.onPageChanged}
         currentPage={this.props.currentPage}
@@ -59,7 +59,7 @@ export class UsersContainer1 extends React.Component<AllMapDisPropsType> {
         totalUsersCount={this.props.totalUsersCount}
         unfollow={this.props.unfollow}
         users={this.props.users}
-
+        />
     }
 }
 

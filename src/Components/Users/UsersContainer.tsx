@@ -72,6 +72,9 @@ export const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 
     }
 }
+
+
+
 export const mapDispatchToProps = (dispatch: Dispatch):mapDispatchPropsType => {
     return {
         follow: (userID: string) => {

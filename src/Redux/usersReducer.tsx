@@ -4,6 +4,7 @@ export type UsersReducerType  = ReturnType<typeof followAC>
 |  ReturnType<typeof setCurrentPageAC>
 |  ReturnType<typeof setTotalUsersCountAC>
 |  ReturnType<typeof onPageChangedAC>
+|  ReturnType<typeof isFetchingAC>
 
 export const followAC = (userID: string) => {
     return {type: 'follow', userID} as const
@@ -22,6 +23,9 @@ export const setTotalUsersCountAC = (totalCount: number) => {
 }
 export const onPageChangedAC = (pageNumber: number) => {
     return {type: 'on_page_changed', pageNumber} as const
+}
+export const isFetchingAC = (isFetching: boolean) => {
+    return {type: 'toggle_is_fetching', isFetching} as const
 }
 
 
@@ -42,6 +46,8 @@ export type UserType = {
     status: string
     photos: PhotosType
     followed: boolean
+    isFetching: boolean
+
     // location: LocationType
 }
 
@@ -54,6 +60,7 @@ const initialState = {
     pageSize: 5,
     totalUsersCount: 33,
     currentPage: 1,
+    isFetching: false
 
 
 }
@@ -87,7 +94,11 @@ export const usersReducer = (state: InitialStateType = initialState, action: Use
         case 'on_page_changed':
             return {
                 ...state, currentPage: action.pageNumber
-
+            }
+        case 'toggle_is_fetching':
+            return  {
+                ...state,
+                isFetching: action.isFetching
             }
         default:
             return state

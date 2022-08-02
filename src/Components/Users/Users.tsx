@@ -4,10 +4,6 @@ import userPhoto from '../../assets/user1.jpg';
 import {AllMapDisPropsType} from './UsersContainer';
 
 
-
-
-
-
 export const Users = (props: AllMapDisPropsType) => {
 
     const unfollowHandler = (userID: string) => {

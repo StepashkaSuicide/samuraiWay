@@ -1,7 +1,23 @@
 import {v1} from 'uuid';
 
-export type ProfileReducerType = ReturnType<typeof addPostAC> |
-    ReturnType<typeof changeNewTextAC>
+export type ProfileReducerType = ReturnType<typeof addPostAC>
+    | ReturnType<typeof changeNewTextAC>
+    | ReturnType<typeof setUserProfile>
+
+export type PostType = {
+    id: string
+    message: string
+    likesCount: number
+}
+export type ProfilePageType = {
+    posts: Array<PostType>
+    messageForNewText: string
+    profile:  any
+}
+
+
+
+export type initialStateType = typeof initialState
 
 export const addPostAC = () => {
     return {
@@ -14,18 +30,12 @@ export const changeNewTextAC = (newText: string) => {
         newText: newText
     } as const
 }
-
-export type PostType = {
-    id: string
-    message: string
-    likesCount: number
+export const setUserProfile = (profile: ProfilePageType) => {
+    return {
+        type: 'set_user_profile',
+        profile: profile
+    } as const
 }
-export type ProfilePageType = {
-    posts: Array<PostType>
-    messageForNewText: string
-}
-
-export type initialStateType = typeof initialState
 
 
 const initialState = {
@@ -36,6 +46,7 @@ const initialState = {
         {id: v1(), message: 'oo jija', likesCount: 15},
     ] as Array<PostType>,
     messageForNewText: '',
+    profile: null,
 }
 
 
@@ -57,6 +68,11 @@ export const profileReducer = (state: initialStateType = initialState, action: P
             return {
                 ...state,
                 messageForNewText: action.newText
+            }
+        case 'set_user_profile':
+            return {
+                ...state,
+                profile: state.profile
             }
         default:
             return state

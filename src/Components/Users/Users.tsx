@@ -2,6 +2,7 @@ import React from 'react';
 import s from './users.module.css';
 import userPhoto from '../../assets/user1.jpg';
 import {AllMapDisPropsType} from './UsersContainer';
+import {NavLink} from 'react-router-dom';
 
 
 export const Users = (props: AllMapDisPropsType) => {
@@ -34,7 +35,10 @@ export const Users = (props: AllMapDisPropsType) => {
                 <div key={t.id}>
                 <span>
                     <div>
-                    <img className={s.ava} src={t.photos.small !== null ? t.photos.small : userPhoto} alt="photo"/>
+                        <NavLink to={'/profile/'+ t.id}>
+                            <img className={s.ava} src={t.photos.small !== null ? t.photos.small : userPhoto} alt="photo"/>
+                            </NavLink>
+
                     </div>
                     <div>
                         {

@@ -15,7 +15,7 @@ import {Users} from './Users';
 import {connect} from 'react-redux';
 import {Preloader} from '../../Common/preloader/Preloader';
 
-export type mapStateToPropsType = {
+ type mapStateToPropsType = {
     users: Array<UserType>
     pageSize: number
     totalUsersCount: number
@@ -23,7 +23,7 @@ export type mapStateToPropsType = {
     isFetching: boolean
 }
 
-export type mapDispatchPropsType = {
+ type mapDispatchPropsType = {
     follow: (userID: string) => void
     unfollow: (userID: string) => void
     setUsers: (users: Array<UserType>) => void

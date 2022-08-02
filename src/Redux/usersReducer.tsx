@@ -1,30 +1,30 @@
-export type UsersReducerType  = ReturnType<typeof followAC>
-|  ReturnType<typeof unfollowAC>
-|  ReturnType<typeof setUsersAC>
-|  ReturnType<typeof setCurrentPageAC>
-|  ReturnType<typeof setTotalUsersCountAC>
-|  ReturnType<typeof onPageChangedAC>
-|  ReturnType<typeof isFetchingAC>
+export type UsersReducerType  = ReturnType<typeof follow>
+|  ReturnType<typeof unfollow>
+|  ReturnType<typeof setUsers>
+|  ReturnType<typeof setCurrentPage>
+|  ReturnType<typeof setTotalUsersCount>
+|  ReturnType<typeof onPageChanged>
+|  ReturnType<typeof toggleIsFetching>
 
-export const followAC = (userID: string) => {
+export const follow = (userID: string) => {
     return {type: 'follow', userID} as const
 }
-export const unfollowAC = (userID: string) => {
+export const unfollow = (userID: string) => {
     return {type: 'unfollow', userID} as const
 }
-export const setUsersAC = (users: Array<UserType>) => {
+export const setUsers = (users: Array<UserType>) => {
     return {type: 'set_users', users} as const
 }
-export const setCurrentPageAC = (currentPage: number) => {
+export const setCurrentPage = (currentPage: number) => {
     return {type: 'set_current_page', currentPage} as const
 }
-export const setTotalUsersCountAC = (totalCount: number) => {
+export const setTotalUsersCount = (totalCount: number) => {
     return {type: 'set_total_users_count', totalCount} as const
 }
-export const onPageChangedAC = (pageNumber: number) => {
+export const onPageChanged = (pageNumber: number) => {
     return {type: 'on_page_changed', pageNumber} as const
 }
-export const isFetchingAC = (isFetching: boolean) => {
+export const toggleIsFetching = (isFetching: boolean) => {
     return {type: 'toggle_is_fetching', isFetching} as const
 }
 

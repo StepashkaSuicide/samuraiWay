@@ -9,15 +9,47 @@ export type PostType = {
     message: string
     likesCount: number
 }
+export type PhotosType = {
+    large: string
+    small:string
+}
 export type ProfilePageType = {
     posts: Array<PostType>
     messageForNewText: string
-    profile:  any
+    profile: null | UserType
+
+}
+
+export  type ContactsType = {
+    facebook: string
+    github: string
+    instagram: string
+    mainLink: string
+    twitter: string
+    vk: string
+    website: string
+    youtube: string
+}
+type UserType = {
+    userId: string
+    fullName: string
+    aboutMe: string
+    contacts: ContactsType
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    photos: PhotosType
+}
+//     export type ResponseProfileTypeApi = {
+//     resultCode: number
+//     messages: Array<string>
+//     data: UserType
+// }
+
+export type ProfileType = {
+    profile: UserType | null
 }
 
 
-
-export type initialStateType = typeof initialState
 
 export const addPostAC = () => {
     return {
@@ -30,13 +62,19 @@ export const changeNewTextAC = (newText: string) => {
         newText: newText
     } as const
 }
-export const setUserProfile = (profile: ProfilePageType) => {
+export const setUserProfile = (profile: UserType) => {
     return {
         type: 'set_user_profile',
-        profile: profile
+        payload: {profile}
     } as const
 }
 
+export type initialStateType = {
+    posts:  Array<PostType>
+    messageForNewText: string
+    profile: UserType | null
+
+} /*typeof initialState*/
 
 const initialState = {
     posts: [
@@ -70,9 +108,10 @@ export const profileReducer = (state: initialStateType = initialState, action: P
                 messageForNewText: action.newText
             }
         case 'set_user_profile':
-            return {
+
+            return /*<initialStateType>*/{
                 ...state,
-                profile: state.profile
+                profile: action.payload.profile,
             }
         default:
             return state

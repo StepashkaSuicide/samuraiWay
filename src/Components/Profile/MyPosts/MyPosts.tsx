@@ -14,7 +14,6 @@ import {MyPostContainerType} from './MyPostsContainer';
 
 
 const MyPosts = (props: MyPostContainerType) => {
-
     let postsElement = props.posts.map(p =>
         <Post key={p.id}
               message={p.message}
@@ -23,7 +22,6 @@ const MyPosts = (props: MyPostContainerType) => {
 
     let onAddPost = () => {
         props.addPost()
-
     }
 
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {

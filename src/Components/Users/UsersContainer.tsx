@@ -38,7 +38,8 @@ export class UsersContainer extends React.Component<AllMapDisPropsType> {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=
+        ${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
             this.props.toggleIsFetching(false)
             this.props.setUsers(response.data.items)
         })
@@ -48,14 +49,15 @@ export class UsersContainer extends React.Component<AllMapDisPropsType> {
         this.props.toggleIsFetching(true)
 
         this.props.setCurrentPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=
+        ${pageNumber}&count=${this.props.pageSize}`).then(response => {
             this.props.toggleIsFetching(false)
             this.props.setUsers(response.data.items)
             this.props.setTotalUsersCount(response.data.totalCount)
         })
     }
 
-    render(): React.ReactNode {
+    render()/*: React.ReactNode*/ {
         return <>
             {this.props.isFetching ? <Preloader/> : null}
             <Users

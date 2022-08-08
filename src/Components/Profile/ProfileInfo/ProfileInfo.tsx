@@ -1,7 +1,7 @@
 import React from 'react';
 import s from "./ProfileInfo.module.css";
 import {Preloader} from '../../../Common/preloader/Preloader';
-import {ProfilePageType, ProfileType} from '../../../Redux/profileReducer';
+import { ProfileType} from '../../../Redux/profileReducer';
 
 
 
@@ -16,6 +16,7 @@ const ProfileInfo = (props: ProfileType) => {
                      alt="main"/>
             </div>
             <div className={s.description}>
+                <img src={props.profile.photos.large} alt="largePhotos"/>
                 ava+description
             </div>
         </div>

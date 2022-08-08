@@ -1,12 +1,33 @@
 
 .header img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 55px;
     width: 55px;
+    margin-left: 20px;
 
 }
 
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-area: h;
+    background-color: #ff0059;
+}
 
-.header{
-grid-area: h;
-    background-color: darkgrey;
+
+
+
+.loginBlock {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+    font-size: 50px;
+
+}
+.loginBlock a {
+    text-decoration: none;
+    color: white;
 }

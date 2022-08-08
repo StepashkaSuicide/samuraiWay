@@ -16,7 +16,7 @@ export type PhotosType = {
 export type ProfilePageType = {
     posts: Array<PostType>
     messageForNewText: string
-    profile: UserTypeProfileReducer | null
+    profile: UserProfileReducerType | null
 
 }
 
@@ -30,7 +30,7 @@ export  type ContactsType = {
     website: string
     youtube: string
 }
-export type UserTypeProfileReducer = {
+export type UserProfileReducerType = {
     userId: string
     fullName: string
     aboutMe: string
@@ -46,8 +46,7 @@ export type UserTypeProfileReducer = {
 // }
 
 export type ProfileType = {
-    profile: UserTypeProfileReducer | null
-    // profile: UserType | null
+    profile: UserProfileReducerType | null
 }
 
 
@@ -63,7 +62,7 @@ export const changeNewTextAC = (newText: string) => {
         newText: newText
     } as const
 }
-export const setUserProfile = (profile: UserTypeProfileReducer) => {
+export const setUserProfile = (profile: UserProfileReducerType) => {
     return {
         type: 'set_user_profile',
         payload: {profile}
@@ -73,7 +72,7 @@ export const setUserProfile = (profile: UserTypeProfileReducer) => {
 export type initialStateType = {
     posts:  Array<PostType>
     messageForNewText: string
-    profile: UserTypeProfileReducer | null
+    profile: UserProfileReducerType | null
 
 } /*typeof initialState*/
 

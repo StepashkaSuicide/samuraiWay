@@ -1,0 +1,12 @@
+
+.preloader {
+    position: absolute;
+    display: flex;
+    top: 4px;
+    left: 20px
+}
+
+.preloader img {
+    width: 70px;
+    height: 70px;
+}

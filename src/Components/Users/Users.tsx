@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './users.module.css';
+import s from './Users.module.css';
 import userPhoto from '../../assets/user1.jpg';
 import {AllMapDisPropsType} from './UsersContainer';
 import {NavLink} from 'react-router-dom';
@@ -20,11 +20,13 @@ export const Users = (props: AllMapDisPropsType) => {
             pages.push(i)
         }
     }
+
+    const stylePagination = s.stylePagination
     return (
-        <div>
-            <div>
+        <div className={s.usersMainBlock}>
+            <div className={s.number}>
                 {pages.map(t => {
-                    return <span key={t} className={props.currentPage === t ? s.selectedPage : ''}
+                    return <span key={t} className={`${props.currentPage === t ? s.selectedPage : ''} ${stylePagination}`}
                                  onClick={(e) => {
                                      props.onPageChanged(t)
                                  }}>

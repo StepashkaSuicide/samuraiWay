@@ -15,7 +15,7 @@ import {Users} from './Users';
 import {connect} from 'react-redux';
 import {Preloader} from '../../Common/preloader/Preloader';
 
- type mapStateToPropsType = {
+type mapStateToPropsType = {
     users: Array<UserType>
     pageSize: number
     totalUsersCount: number
@@ -23,7 +23,7 @@ import {Preloader} from '../../Common/preloader/Preloader';
     isFetching: boolean
 }
 
- type mapDispatchPropsType = {
+type mapDispatchPropsType = {
     follow: (userID: string) => void
     unfollow: (userID: string) => void
     setUsers: (users: Array<UserType>) => void
@@ -38,22 +38,23 @@ export class UsersContainer extends React.Component<AllMapDisPropsType> {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=
-        ${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(response.data.items)
-        })
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.toggleIsFetching(false)
+                this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
+            })
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.toggleIsFetching(true)
-
         this.props.setCurrentPage(pageNumber)
+
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=
         ${pageNumber}&count=${this.props.pageSize}`).then(response => {
-            this.props.toggleIsFetching(false)
             this.props.setUsers(response.data.items)
-            this.props.setTotalUsersCount(response.data.totalCount)
+            this.props.toggleIsFetching(false)
+            // this.props.setTotalUsersCount(response.data.totalCount)
         })
     }
 
@@ -97,5 +98,5 @@ export default connect(mapStateToProps, {
         setTotalUsersCount,
         onPageChanged,
         toggleIsFetching
-}
-   )(UsersContainer);
+    }
+)(UsersContainer);

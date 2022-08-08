@@ -4,5 +4,18 @@
     width: 70px;
 }
 .selectedPage {
+
     font-weight:  bold ;
+}
+
+.usersMainBlock {
+    padding-left: 30px;
+}
+
+.stylePagination {
+    padding: 10px;
+}
+.number {
+ padding: 15px 0 ;
+
 }

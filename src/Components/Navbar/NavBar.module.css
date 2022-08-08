@@ -1,23 +1,28 @@
 .nav {
-  grid-area: n;
-  background-color: #84b078;
-padding: 20px;
+    grid-area: n;
+    background-color: #f36975;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 30px;
+    line-height: 1.5;
+    min-height: 100vh;
 
 }
 
-.item a{
-  color: white;
-  text-decoration: none;
-
+.item a {
+    color: white;
+    text-decoration: none;
 
 
 }
 
 .item {
-  color: white;
+    color: white;
 
 }
 
 a.active {
-  color: gold;
+    color: gold;
 }

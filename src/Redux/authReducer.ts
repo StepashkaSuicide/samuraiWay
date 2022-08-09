@@ -15,6 +15,16 @@ export type AuthReducerActionType =
     | ReturnType<typeof toggleIsFetching>
 
 
+export type AuthType = {
+    id: number
+    login: string
+    email: string
+    messages: []
+    fieldsErrors: []
+    resultCode: number
+}
+
+
 const initialState = {
     id: null,
     email: null,

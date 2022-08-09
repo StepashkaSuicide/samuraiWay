@@ -11,11 +11,13 @@ type MapStatePropsType = {
     login: string
 }
 type MapDispatchPropsType = {
-    isAuth: () => void
+    // isAuth: (isAuth: boolean) => void
     toggleIsFetching: (isFetching: boolean) => void
     setAuthUserData: (userId: string | null, email: string | null, login: string | null) => void
 }
 type PropsTypeHeaderContainer = MapStatePropsType & MapDispatchPropsType
+
+
 
 
 class HeaderContainer extends React.Component<PropsTypeHeaderContainer> {

@@ -7,25 +7,30 @@ export type InitialStateTypeAuthReducer = {
     login: string | null
     isAuth: boolean
     isFetching: boolean
+
 }
 
 
 export type AuthReducerActionType =
     ReturnType<typeof setAuthUserData>
-    | ReturnType<typeof toggleIsFetching>
+    // | ReturnType<typeof toggleIsFetching>
+    // | ReturnType<typeof isAuth>
 
 
-export type AuthType = {
+
+export type DataType = {
     id: number
-    login: string
     email: string
-    messages: []
-    fieldsErrors: []
-    resultCode: number
+    login: string
 }
 
+export type AuthAPIType = {
+    resultCode: number
+    messages: string[]
+    data: DataType
+}
 
-const initialState = {
+const initialState: InitialStateTypeAuthReducer = {
     id: null,
     email: null,
     login: null,
@@ -39,29 +44,16 @@ export const setAuthUserData = (userId: string | null, email: string | null, log
         payload: {userId, email, login}
     } as const
 }
-export const toggleIsFetching = () => {
-    return {
-        type: 'toggle_is_fetching',
-        isFetching: false,
-    } as const
-}
 
-
-export const authReducer = (state = initialState, action: AuthReducerActionType): InitialStateTypeAuthReducer => {
+export const authReducer = (state: InitialStateTypeAuthReducer = initialState, action: AuthReducerActionType): InitialStateTypeAuthReducer => {
     switch (action.type) {
         case 'set_user_data':
             return {
                 ...state,
                 ...action.payload,
-                isAuth: true
-            }
-        case 'toggle_is_fetching':
-            return {
-                ...state,
-                isFetching: action.isFetching,
+                isAuth: true,
             }
         default:
             return state
-
     }
 }

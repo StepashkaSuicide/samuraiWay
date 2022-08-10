@@ -1,24 +1,21 @@
 import React from 'react';
 import Header from './Header';
 import axios from 'axios';
-import {setAuthUserData, toggleIsFetching} from '../../Redux/authReducer';
+import {setAuthUserData} from '../../Redux/authReducer';
+import {toggleIsFetching} from '../../Redux/usersReducer';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../Redux/reduxStore';
 
 type MapStatePropsType = {
     isFetching: boolean
     isAuth: boolean
-    login: string
+    login: string | null
 }
 type MapDispatchPropsType = {
-    // isAuth: (isAuth: boolean) => void
     toggleIsFetching: (isFetching: boolean) => void
     setAuthUserData: (userId: string | null, email: string | null, login: string | null) => void
 }
 type PropsTypeHeaderContainer = MapStatePropsType & MapDispatchPropsType
-
-
-
 
 class HeaderContainer extends React.Component<PropsTypeHeaderContainer> {
     componentDidMount() {
@@ -36,19 +33,16 @@ class HeaderContainer extends React.Component<PropsTypeHeaderContainer> {
                 }
             })
     }
-
     render() {
         return (
             <Header {...this.props}/>
         );
     }
-
-};
-
+}
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        isFetching: state.usersPage.isFetching,
+        isFetching: state.auth.isFetching,
         isAuth: state.auth.isAuth,
         login: state.auth.login,
     }

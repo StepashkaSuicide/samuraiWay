@@ -29,7 +29,7 @@ export const toggleIsFetching = (isFetching: boolean) => {
 }
 
 
-export type InitialStateType = typeof initialState
+// export type InitialStateType = typeof initialState
 
 export type LocationType = {
     city: string
@@ -55,7 +55,16 @@ export type UsersType = {
     users: Array<UserType>
 }
 
-const initialState = {
+
+type InitialStateType = {
+    users: Array<UserType>,
+    pageSize: number,
+    totalUsersCount: number,
+    currentPage: number,
+    isFetching: boolean
+}
+
+const initialState: InitialStateType = {
     users: [] as Array<UserType>,
     pageSize: 5,
     totalUsersCount: 33,

@@ -1,13 +1,8 @@
 import { v1 } from 'uuid';
-import {addPostAC, changeNewTextAC} from './profileReducer';
-
-
-
 
 export type DialogsReducerType =
     ReturnType<typeof updateNewMessageBodyAC> |
     ReturnType<typeof sendMessageAC>
-
 
 export const updateNewMessageBodyAC = (body: string) => {
     return {
@@ -26,7 +21,6 @@ export type MessageType = {
 
 }
 
-
 export type DialogType = {
     id: string
     name: string
@@ -40,9 +34,15 @@ export type DialogPageType = {
 
 }
 
-export type initialStateType = typeof initialState
+// export type initialStateType = typeof initialState
 
-const initialState = {
+type initialStateType = {
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
+    newMessageBody: string
+}
+
+const initialState: initialStateType = {
     dialogs: [
         {id: v1(), name: 'Dimych'},
         {id: v1(), name: 'Linklenia'},

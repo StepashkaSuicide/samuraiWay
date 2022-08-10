@@ -69,14 +69,14 @@ export const setUserProfile = (profile: UserProfileReducerType) => {
     } as const
 }
 
-export type initialStateType = {
+export type InitialStateType = {
     posts:  Array<PostType>
     messageForNewText: string
     profile: UserProfileReducerType | null
 
 } /*typeof initialState*/
 
-const initialState = {
+const initialState: InitialStateType = {
     posts: [
         {id: v1(), message: 'hi jija', likesCount: 12},
         {id: v1(), message: 'bb jija', likesCount: 11},
@@ -88,7 +88,7 @@ const initialState = {
 }
 
 
-export const profileReducer = (state: initialStateType = initialState, action: ProfileReducerType): initialStateType => {
+export const profileReducer = (state: InitialStateType = initialState, action: ProfileReducerType): InitialStateType => {
     switch (action.type) {
         case 'add_post':
             const postID = v1()
@@ -109,7 +109,7 @@ export const profileReducer = (state: initialStateType = initialState, action: P
             }
         case 'set_user_profile':
 
-            return /*<initialStateType>*/{
+            return /*<InitialStateType>*/{
                 ...state,
                 profile: action.payload.profile,
             }

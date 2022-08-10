@@ -8,22 +8,26 @@ import axios from 'axios';
 
 export const Users = (props: AllMapDisPropsType) => {
 
-    const unfollowHandler = (userID: string) => {
+    const unfollowHandler = (userID: number) => {
+        props.toggleFollowingInProgress(true, userID)
         axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userID}`,
             {
                 withCredentials: true,
                 headers: {
                     'api-key': '938d5b70-0da7-4cf1-845c-1367ca037db0'
                 }
+
             }
         )
             .then(response => {
                 if (response.data.resultCode === 0) {
                     props.unfollow(userID)
                 }
+                props.toggleFollowingInProgress(false, userID)
             })
     }
-    const followHandler = (userID: string) => {
+    const followHandler = (userID: number) => {
+        props.toggleFollowingInProgress(true, userID)
         axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userID}`, {},
             {
                 withCredentials: true,
@@ -35,6 +39,7 @@ export const Users = (props: AllMapDisPropsType) => {
                 if (response.data.resultCode === 0) {
                     props.follow(userID)
                 }
+                props.toggleFollowingInProgress(false, userID)
             })
     }
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -71,8 +76,8 @@ export const Users = (props: AllMapDisPropsType) => {
                     <div>
                         {
                             t.followed
-                                ? <button onClick={() => unfollowHandler(t.id)}>Unfollow</button>
-                                : <button onClick={() => followHandler(t.id)}>Follow</button>}
+                                ? <button disabled={props.followingInProgress.some(id=>id ===t.id)} onClick={() => unfollowHandler(t.id)}>Unfollow</button>
+                                : <button disabled={props.followingInProgress.some(id=>id ===t.id)} onClick={() => followHandler(t.id)}>Follow</button>}
                     </div>
                 </span>
                     <span>

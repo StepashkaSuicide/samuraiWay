@@ -21,12 +21,12 @@ export const usersAPI = {
 }
 
 
-export const getUsers =(currentPage: number, pageSize: number)=> {
-    return    instance.get(`users?page=${currentPage}&count=${pageSize}`,
-        {
-            withCredentials: true
-        })
-        .then(response => {
-            return response.data
-        })
-}
+// export const getUsers =(currentPage: number, pageSize: number)=> {
+//     return    instance.get(`users?page=${currentPage}&count=${pageSize}`,
+//         {
+//             withCredentials: true
+//         })
+//         .then(response => {
+//             return response.data
+//         })
+// }

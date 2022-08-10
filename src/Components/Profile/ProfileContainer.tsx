@@ -29,7 +29,7 @@ function withRouter(Component: any /*React.ElementType*/) {
 }
 
 type PathParamsType = {
-    userId: string
+    userId: number
 }
 export type MapStateToPropsType = {
     profile: UserProfileReducerType | null

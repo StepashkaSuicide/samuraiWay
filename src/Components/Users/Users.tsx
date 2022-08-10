@@ -3,15 +3,39 @@ import s from './Users.module.css';
 import userPhoto from '../../assets/user1.jpg';
 import {AllMapDisPropsType} from './UsersContainer';
 import {NavLink} from 'react-router-dom';
+import axios from 'axios';
 
 
 export const Users = (props: AllMapDisPropsType) => {
 
     const unfollowHandler = (userID: string) => {
-        props.follow(userID)
+        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userID}`,
+            {
+                withCredentials: true,
+                headers: {
+                    'api-key': '938d5b70-0da7-4cf1-845c-1367ca037db0'
+                }
+            }
+        )
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    props.unfollow(userID)
+                }
+            })
     }
     const followHandler = (userID: string) => {
-        props.unfollow(userID)
+        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userID}`, {},
+            {
+                withCredentials: true,
+                headers: {
+                    'api-key': '938d5b70-0da7-4cf1-845c-1367ca037db0'
+                }
+            })
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    props.follow(userID)
+                }
+            })
     }
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages = []
@@ -26,7 +50,8 @@ export const Users = (props: AllMapDisPropsType) => {
         <div className={s.usersMainBlock}>
             <div className={s.number}>
                 {pages.map(t => {
-                    return <span key={t} className={`${props.currentPage === t ? s.selectedPage : ''} ${stylePagination}`}
+                    return <span key={t}
+                                 className={`${props.currentPage === t ? s.selectedPage : ''} ${stylePagination}`}
                                  onClick={(e) => {
                                      props.onPageChanged(t)
                                  }}>
@@ -37,8 +62,9 @@ export const Users = (props: AllMapDisPropsType) => {
                 <div key={t.id}>
                 <span>
                     <div>
-                        <NavLink to={'/profile/'+ t.id}>
-                            <img className={s.ava} src={t.photos.small !== null ? t.photos.small : userPhoto} alt="photo"/>
+                        <NavLink to={'/profile/' + t.id}>
+                            <img className={s.ava} src={t.photos.small !== null ? t.photos.small : userPhoto}
+                                 alt="photo"/>
                             </NavLink>
 
                     </div>

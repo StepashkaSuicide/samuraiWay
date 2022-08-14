@@ -47,12 +47,8 @@ export class UsersContainer extends React.Component<AllMapDisPropsType> {
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.toggleIsFetching(true)
-        this.props.setCurrentPage(pageNumber)
-        usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(data.items)
-        })
+        this.props.getUsersThunkCreator(pageNumber, this.props.pageSize)
+
     }
 
     render()/*: React.ReactNode*/ {

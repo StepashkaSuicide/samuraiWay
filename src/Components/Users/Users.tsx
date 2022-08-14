@@ -3,45 +3,26 @@ import s from './Users.module.css';
 import userPhoto from '../../assets/user1.jpg';
 import {AllMapDisPropsType} from './UsersContainer';
 import {NavLink} from 'react-router-dom';
-import axios from 'axios';
+import {usersAPI} from '../../api/api';
 
 
 export const Users = (props: AllMapDisPropsType) => {
 
     const unfollowHandler = (userID: number) => {
-        props.toggleFollowingInProgress(true, userID)
-        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userID}`,
-            {
-                withCredentials: true,
-                headers: {
-                    'api-key': '938d5b70-0da7-4cf1-845c-1367ca037db0'
-                }
-
-            }
-        )
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    props.unfollow(userID)
-                }
-                props.toggleFollowingInProgress(false, userID)
-            })
+        props.unfollow(userID)
     }
     const followHandler = (userID: number) => {
-        props.toggleFollowingInProgress(true, userID)
-        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userID}`, {},
-            {
-                withCredentials: true,
-                headers: {
-                    'api-key': '938d5b70-0da7-4cf1-845c-1367ca037db0'
-                }
-            })
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    props.follow(userID)
-                }
-                props.toggleFollowingInProgress(false, userID)
-            })
+        props.follow(userID)
     }
+
+        // props.toggleFollowingInProgress(true, userID)
+        // usersAPI.follow(userID)
+        //     .then(response => {
+        //         if (response.data.resultCode === 0) {
+        //             props.followSuccess(userID)
+        //         }
+        //         props.toggleFollowingInProgress(false, userID)
+
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages = []
     for (let i = 1; i <= pagesCount; i++) {

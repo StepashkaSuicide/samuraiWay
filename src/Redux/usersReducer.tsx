@@ -1,3 +1,7 @@
+import {Dispatch} from 'redux';
+import {usersAPI} from '../api/api';
+import {AppActionType, AppThunkType} from './reduxStore';
+
 export type LocationType = {
     city: string
     country: string
@@ -6,7 +10,6 @@ export type PhotosType = {
     small: string | undefined
     large: string | undefined
 }
-
 export type UserType = {
     id: number
     name: string
@@ -18,12 +21,9 @@ export type UserType = {
 
     // location: LocationType
 }
-
 export type UsersType = {
     users: Array<UserType>
 }
-
-
 type InitialStateType = {
     users: Array<UserType>,
     pageSize: number,
@@ -44,14 +44,14 @@ const initialState: InitialStateType = {
 
 }
 
-export type UsersReducerType  = ReturnType<typeof follow>
-    |  ReturnType<typeof unfollow>
-    |  ReturnType<typeof setUsers>
-    |  ReturnType<typeof setCurrentPage>
-    |  ReturnType<typeof setTotalUsersCount>
-    |  ReturnType<typeof onPageChanged>
-    |  ReturnType<typeof toggleIsFetching>
-    |  ReturnType<typeof toggleFollowingInProgress>
+export type UsersReducerActionType = ReturnType<typeof follow>
+    | ReturnType<typeof unfollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof onPageChanged>
+    | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof toggleFollowingInProgress>
 
 export const follow = (userID: number) => {
     return {type: 'follow', userID} as const
@@ -78,7 +78,8 @@ export const toggleFollowingInProgress = (followingInProgress: boolean, userId: 
     return {type: 'following_progress', followingInProgress, userId} as const
 }
 
-export const usersReducer = (state: InitialStateType = initialState, action: UsersReducerType): InitialStateType => {
+
+export const usersReducer = (state: InitialStateType = initialState, action: AppActionType): InitialStateType => {
     switch (action.type) {
         case 'follow':
             return {
@@ -108,7 +109,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: Use
                 ...state, currentPage: action.pageNumber
             }
         case 'toggle_is_fetching':
-            return  {
+            return {
                 ...state,
                 isFetching: action.isFetching
             }
@@ -116,10 +117,21 @@ export const usersReducer = (state: InitialStateType = initialState, action: Use
             return {
                 ...state,
                 followingInProgress: action.followingInProgress
-                    ?[...state.followingInProgress, action.userId]
-                    :state.followingInProgress.filter(id=>id != action.userId)
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id != action.userId)
             }
         default:
             return state
+    }
+}
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number):AppThunkType => {
+    return (dispatch) => {
+        dispatch(toggleIsFetching(true))
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(toggleIsFetching(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+        })
     }
 }

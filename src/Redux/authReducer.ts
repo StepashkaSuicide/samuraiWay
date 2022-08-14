@@ -1,4 +1,5 @@
 import React from 'react';
+import { AppActionType } from './reduxStore';
 
 
 export type InitialStateTypeAuthReducer = {
@@ -11,10 +12,7 @@ export type InitialStateTypeAuthReducer = {
 }
 
 
-export type AuthReducerActionType =
-    ReturnType<typeof setAuthUserData>
-    // | ReturnType<typeof toggleIsFetching>
-    // | ReturnType<typeof isAuth>
+export type AuthReducerActionType = ReturnType<typeof setAuthUserData>
 
 
 
@@ -45,7 +43,7 @@ export const setAuthUserData = (userId: string | null, email: string | null, log
     } as const
 }
 
-export const authReducer = (state: InitialStateTypeAuthReducer = initialState, action: AuthReducerActionType): InitialStateTypeAuthReducer => {
+export const authReducer = (state: InitialStateTypeAuthReducer = initialState, action: AppActionType): InitialStateTypeAuthReducer => {
     switch (action.type) {
         case 'set_user_data':
             return {

@@ -1,6 +1,7 @@
 import { v1 } from 'uuid';
+import { AppActionType } from './reduxStore';
 
-export type DialogsReducerType =
+export type DialogsReducerActionType =
     ReturnType<typeof updateNewMessageBodyAC> |
     ReturnType<typeof sendMessageAC>
 
@@ -61,7 +62,7 @@ const initialState: initialStateType = {
 }
 
 
-export const dialogsReducer = (state: initialStateType = initialState, action: DialogsReducerType): initialStateType => {
+export const dialogsReducer = (state: initialStateType = initialState, action: AppActionType): initialStateType => {
 
     switch (action.type) {
         case 'send_message':

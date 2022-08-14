@@ -1,6 +1,7 @@
 import {v1} from 'uuid';
+import { AppActionType } from './reduxStore';
 
-export type ProfileReducerType = ReturnType<typeof addPostAC>
+export type ProfileReducerActionType = ReturnType<typeof addPostAC>
     | ReturnType<typeof changeNewTextAC>
     | ReturnType<typeof setUserProfile>
 
@@ -88,7 +89,7 @@ const initialState: InitialStateType = {
 }
 
 
-export const profileReducer = (state: InitialStateType = initialState, action: ProfileReducerType): InitialStateType => {
+export const profileReducer = (state: InitialStateType = initialState, action: AppActionType): InitialStateType => {
     switch (action.type) {
         case 'add_post':
             const postID = v1()

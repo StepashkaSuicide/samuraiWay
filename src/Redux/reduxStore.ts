@@ -1,8 +1,9 @@
-import {combineReducers, createStore} from 'redux';
-import {ProfilePageType, profileReducer} from './profileReducer';
-import {DialogPageType, dialogsReducer} from './dialogsReducer';
-import {usersReducer} from './usersReducer';
-import {authReducer} from './authReducer';
+import {applyMiddleware, combineReducers, createStore} from 'redux';
+import {ProfilePageType, profileReducer, ProfileReducerActionType} from './profileReducer';
+import {DialogPageType, dialogsReducer, DialogsReducerActionType} from './dialogsReducer';
+import {usersReducer, UsersReducerActionType} from './usersReducer';
+import {authReducer, AuthReducerActionType} from './authReducer';
+import thunkMiddleware, {ThunkAction} from 'redux-thunk'
 
 
 export type RootStateType = {
@@ -22,8 +23,10 @@ const rootReducer = combineReducers({
 
 export type AppStateType = ReturnType<typeof rootReducer> //ипортировать в контейнерные компоненты
 
-export const store = createStore(rootReducer)
+export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
+//все типы экшенов в приложении
+export type AppActionType = UsersReducerActionType | AuthReducerActionType | DialogsReducerActionType | ProfileReducerActionType
 
-
+export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, RootStateType, unknown, AppActionType>
 
 

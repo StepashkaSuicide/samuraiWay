@@ -6,12 +6,12 @@ import {DialogsContainer} from './Components/Dialogs/DialogsContainer';
 import UsersContainer from './Components/Users/UsersContainer';
 import ProfileContainer from './Components/Profile/ProfileContainer';
 import HeaderContainer from './Components/Header/HeaderContainer';
-
+import {Login} from './Components/Login/Login';
 
 const App = () => {
     return (
         <div className={s.appWrapper}>
-            <HeaderContainer  />
+            <HeaderContainer/>
             <NavBar/>
             <div className={s.appWrapperContent}>
                 <Routes>
@@ -21,13 +21,13 @@ const App = () => {
                     <Route path='/dialogs/*' element={<DialogsContainer/>}
                     />
                     <Route path='/users/*' element={<UsersContainer/>}
-                    />
+                    /> <Route path='/login/' element={<Login/>}
+                />
                 </Routes>
             </div>
         </div>
     );
 }
-
 
 export default App;
 

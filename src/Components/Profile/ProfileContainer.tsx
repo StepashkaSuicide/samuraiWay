@@ -3,7 +3,7 @@ import Profile from './Profile';
 import {connect} from 'react-redux';
 import {getUserProfile, ProfileType, UserProfileReducerType} from '../../Redux/profileReducer';
 import {AppStateType} from '../../Redux/reduxStore';
-import {useLocation, useNavigate, useParams,} from 'react-router-dom';
+import {Navigate, useLocation, useNavigate, useParams,} from 'react-router-dom';
 // @ts-ignore
 import {RouteComponentProps} from 'react-router';
 
@@ -28,6 +28,7 @@ type PathParamsType = {
 }
 export type MapStateToPropsType = {
     profile: UserProfileReducerType | null
+    isAuth: boolean
 }
 export type MapDispatchPropsType = {
     setUserProfile: (profile: UserProfileReducerType) => void
@@ -46,6 +47,7 @@ export class ProfileContainer extends React.Component<PropsType> {
     }
 
     render()/*: React.ReactNode*/ {
+        if (!this.props.isAuth) return <Navigate to={'/login/'}/>
         return (
 
             <Profile profile={this.props.profile}/>
@@ -53,7 +55,8 @@ export class ProfileContainer extends React.Component<PropsType> {
     }
 }
 
-const mapStatePropsType = (state: AppStateType): ProfileType => ({
-    profile: state.profilePage.profile
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
+    profile: state.profilePage.profile,
+    isAuth: state.auth.isAuth
 })
-export default connect(mapStatePropsType, {getUserProfile})(withRouter(ProfileContainer))
+export default connect(mapStateToProps, {getUserProfile})(withRouter(ProfileContainer))

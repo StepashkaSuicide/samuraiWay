@@ -3,6 +3,7 @@ import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogsItem';
 import Message from './Message/Message';
 import {AllMapDisToPropsType} from './DialogsContainer';
+import { Navigate } from 'react-router-dom';
 
 
 // type DialogsPropsType = {
@@ -30,8 +31,8 @@ export const Dialogs = (props: AllMapDisToPropsType) => {
     }
     const onNewMessageChange =(e:ChangeEvent<HTMLTextAreaElement>)=> {
         props.onNewMessageChange(e.currentTarget.value)
-
     }
+    if(!props.isAuth) return <Navigate to={'/login/'}/>
 
     return (
         <div className={s.dialogs}>

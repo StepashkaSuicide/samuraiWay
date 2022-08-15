@@ -47,7 +47,6 @@ export  type ContactsType = {
     youtube: string
 }
 export type UserProfileReducerType = {
-
     userId: string
     fullName: string
     aboutMe: string

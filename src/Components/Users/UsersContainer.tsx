@@ -27,7 +27,7 @@ type mapDispatchPropsType = {
     unfollow: (userID: number)=>void
     follow: (userID: number)=>void
 
-    toggleFollowingInProgress: (isFetching: boolean, userId: number) => void
+    // toggleFollowingInProgress: (isFetching: boolean, userId: number) => void
     setCurrentPage: (pageNumber: number) => void
     onPageChanged: (pageNumber: number) => void
 
@@ -54,7 +54,7 @@ export class UsersContainer extends React.Component<AllMapDisPropsType> {
                 unfollow={this.props.unfollow}
                 follow={this.props.follow}
                 getUsers={this.props.getUsers}
-                toggleFollowingInProgress={this.props.toggleFollowingInProgress}
+                // toggleFollowingInProgress={this.props.toggleFollowingInProgress}
                 followingInProgress={this.props.followingInProgress}
                 isFetching={this.props.isFetching}
                 onPageChanged={this.onPageChanged}

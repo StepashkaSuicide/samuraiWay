@@ -1,5 +1,7 @@
 import React from 'react';
-import { AppActionType } from './reduxStore';
+import {AppActionType, AppThunkType} from './reduxStore';
+import {authAPI} from '../api/api';
+import {toggleIsFetching} from './usersReducer';
 
 
 export type InitialStateTypeAuthReducer = {
@@ -13,7 +15,6 @@ export type InitialStateTypeAuthReducer = {
 
 
 export type AuthReducerActionType = ReturnType<typeof setAuthUserData>
-
 
 
 export type DataType = {
@@ -53,5 +54,19 @@ export const authReducer = (state: InitialStateTypeAuthReducer = initialState, a
             }
         default:
             return state
+    }
+}
+
+export const getAuthUserData = (): AppThunkType => {
+    return (dispatch) => {
+        toggleIsFetching(true)
+        authAPI.me()
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    let {id, login, email} = response.data.data
+                    toggleIsFetching(false)
+                    dispatch(setAuthUserData(id, email, login))
+                }
+            })
     }
 }

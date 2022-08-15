@@ -22,16 +22,15 @@ export const usersAPI = {
     unfollow(userId: number) {
         return instance.delete(`follow/${userId}`)
     },
+    getProfile(userId: number) {
+        return instance.get(`profile/${userId}`)
 
+    }
 }
 
 
-// export const getUsers =(currentPage: number, pageSize: number)=> {
-//     return    instance.get(`users?page=${currentPage}&count=${pageSize}`,
-//         {
-//             withCredentials: true
-//         })
-//         .then(response => {
-//             return response.data
-//         })
-// }
+export const authAPI = {
+    me() {
+        return instance.get('auth/me')
+    }
+}

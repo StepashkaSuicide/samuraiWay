@@ -50,7 +50,6 @@ export class UsersContainer extends React.Component<AllMapDisPropsType> {
         return <>
             {this.props.isFetching ? <Preloader/> : null}
             <Users
-
                 unfollow={this.props.unfollow}
                 follow={this.props.follow}
                 getUsers={this.props.getUsers}

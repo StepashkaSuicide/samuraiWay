@@ -1,5 +1,14 @@
 import {v1} from 'uuid';
-import { AppActionType } from './reduxStore';
+import {AppActionType, AppThunkType} from './reduxStore';
+import {Dispatch} from 'redux';
+import {usersAPI} from '../api/api';
+
+
+//     export type ResponseProfileTypeApi = {
+//     resultCode: number
+//     messages: Array<string>
+//     data: UserType
+// }
 
 export type ProfileReducerActionType = ReturnType<typeof addPostAC>
     | ReturnType<typeof changeNewTextAC>
@@ -10,17 +19,23 @@ export type PostType = {
     message: string
     likesCount: number
 }
+export type InitialStateType = {
+    posts: Array<PostType>
+    messageForNewText: string
+    profile: UserProfileReducerType | null
+
+} /*typeof initialState*/
 export type PhotosType = {
     large: string
-    small:string
+    small: string
 }
+
 export type ProfilePageType = {
     posts: Array<PostType>
     messageForNewText: string
     profile: UserProfileReducerType | null
 
 }
-
 export  type ContactsType = {
     facebook: string
     github: string
@@ -32,6 +47,7 @@ export  type ContactsType = {
     youtube: string
 }
 export type UserProfileReducerType = {
+
     userId: string
     fullName: string
     aboutMe: string
@@ -40,29 +56,23 @@ export type UserProfileReducerType = {
     lookingForAJobDescription: string
     photos: PhotosType
 }
-//     export type ResponseProfileTypeApi = {
-//     resultCode: number
-//     messages: Array<string>
-//     data: UserType
-// }
 
 export type ProfileType = {
     profile: UserProfileReducerType | null
 }
-
-
-
 export const addPostAC = () => {
     return {
         type: 'add_post',
     } as const
 }
+
 export const changeNewTextAC = (newText: string) => {
     return {
         type: 'update_new_post_text',
         newText: newText
     } as const
 }
+
 export const setUserProfile = (profile: UserProfileReducerType) => {
     return {
         type: 'set_user_profile',
@@ -70,12 +80,14 @@ export const setUserProfile = (profile: UserProfileReducerType) => {
     } as const
 }
 
-export type InitialStateType = {
-    posts:  Array<PostType>
-    messageForNewText: string
-    profile: UserProfileReducerType | null
-
-} /*typeof initialState*/
+export const getUserProfile = (userId: number): AppThunkType => {
+    return (dispatch) => {
+        usersAPI.getProfile(userId)
+            .then(response => {
+                dispatch(setUserProfile(response.data))
+            })
+    }
+}
 
 const initialState: InitialStateType = {
     posts: [

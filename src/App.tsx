@@ -11,7 +11,7 @@ import HeaderContainer from './Components/Header/HeaderContainer';
 const App = () => {
     return (
         <div className={s.appWrapper}>
-            <HeaderContainer />
+            <HeaderContainer  />
             <NavBar/>
             <div className={s.appWrapperContent}>
                 <Routes>

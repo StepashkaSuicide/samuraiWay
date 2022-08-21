@@ -12,8 +12,6 @@ export type RootStateType = {
 }
 
 
-
-
 const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,

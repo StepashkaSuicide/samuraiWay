@@ -15,6 +15,23 @@ export type UserType = {
    // location: LocationType
 }
 
+export type UsersResponseApiType = {
+    items: Array<{
+        name: string
+        id: number
+        uniqueUrlName?: string
+        photos: {
+            small?: string
+            large?: string
+        }
+        status?: string
+        followed: boolean
+    }>
+    totalCount: number
+    error?: string
+}
+
+
 type InitialStateType = {
     users: Array<UserType>,
     pageSize: number,

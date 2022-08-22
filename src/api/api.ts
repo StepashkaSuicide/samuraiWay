@@ -1,28 +1,9 @@
 import axios from 'axios';
 import {ResponseStatusType, UserProfileResponseType} from '../Redux/profileReducer';
+import { UsersResponseApiType } from '../Redux/usersReducer';
 
 
-export type Photos = {
-    small?: any;
-    large?: any;
-}
 
-
-export type UsersResponseApiType = {
-    items: Array<{
-        name: string;
-        id: number;
-        uniqueUrlName?: string;
-        photos: {
-            small?: string
-            large?: string
-        };
-        status?: string;
-        followed: boolean;
-    }>;
-    totalCount: number;
-    error?: string;
-}
 
 
 const instance = axios.create({
@@ -52,7 +33,7 @@ export const usersAPI = {
 export const profileAPI = {
 
     getProfile(userId: number) {
-        return instance.get(`profile/${userId}`)
+        return instance.get<UserProfileResponseType>(`profile/${userId}`)
     },
     getStatus(userId: number) {
         return instance.get<string>(`/profile/status/${userId}`)

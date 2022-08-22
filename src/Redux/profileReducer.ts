@@ -27,43 +27,39 @@ export type InitialStateType = {
     status: string
 
 } /*typeof initialState*/
-export type PhotosType = {
-    large?: string
-    small?: string
-}
 
 export type ProfilePageType = {
     posts: Array<PostType>
     messageForNewText: string
     profile: UserProfileResponseType | null
-
 }
 
-export type ResponseStatusType<T={}> = {
+export type ResponseStatusType<T = {}> = {
     data: T;
     messages: string[];
     fieldsErrors: string[];
     resultCode: number;
 }
-
-export  type ContactsType = {
-    facebook?: string
-    github?: string
-    instagram?: string
-    mainLink?: string
-    twitter?: string
-    vk?: string
-    website?: string
-    youtube?: string
-}
 export type UserProfileResponseType = {
     userId: string
     fullName: string
     aboutMe?: string
-    contacts: ContactsType
+    contacts: {
+        facebook?: string
+        github?: string
+        instagram?: string
+        mainLink?: string
+        twitter?: string
+        vk?: string
+        website?: string
+        youtube?: string
+    }
     lookingForAJob: boolean
     lookingForAJobDescription: string
-    photos: PhotosType
+    photos: {
+        large?: string
+        small?: string
+    }
 }
 
 export type ProfileType = {

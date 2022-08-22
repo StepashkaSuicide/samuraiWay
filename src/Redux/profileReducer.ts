@@ -1,6 +1,7 @@
 import {v1} from 'uuid';
 import {AppActionType, AppThunkType} from './reduxStore';
 import {profileAPI} from '../api/api';
+import {useEffect} from 'react';
 
 
 //     export type ResponseProfileTypeApi = {
@@ -154,11 +155,11 @@ export const getUserProfile = (userId: number): AppThunkType => {
 }
 
 //sanka
+
 export const getProfileStatus = (userId: number): AppThunkType => {
     return (dispatch) => {
         profileAPI.getStatus(userId)
             .then(response => {
-                // debugger
                 dispatch(setStatusAC(response.data))
             })
     }

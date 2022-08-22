@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {ProfileType} from '../../../Redux/profileReducer';
 
 
@@ -6,19 +6,13 @@ export const ProfileStatus = (props: ProfileType) => {
     const [status, setStatus] = useState<string>(props.status)
     const [edit, setEdit] = useState<boolean>(true)
 
-
     const statusChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value)
     }
-
-
-
     const DoubleClickHandler = () => {
-        // updateStatus(status)
         setEdit(!edit)
         props.updateStatus(status)
     }
-
     return (
         <>
             {edit

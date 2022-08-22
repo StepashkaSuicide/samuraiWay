@@ -1,7 +1,7 @@
 import {v1} from 'uuid';
 import {AppActionType, AppThunkType} from './reduxStore';
 import {Dispatch} from 'redux';
-import {usersAPI} from '../api/api';
+import {profileAPI, usersAPI} from '../api/api';
 
 
 //     export type ResponseProfileTypeApi = {
@@ -13,6 +13,7 @@ import {usersAPI} from '../api/api';
 export type ProfileReducerActionType = ReturnType<typeof addPostAC>
     | ReturnType<typeof changeNewTextAC>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setStatusAC>
 
 export type PostType = {
     id: string
@@ -22,34 +23,43 @@ export type PostType = {
 export type InitialStateType = {
     posts: Array<PostType>
     messageForNewText: string
-    profile: UserProfileReducerType | null
+    profile: UserProfileResponseType | null
+    status: string
 
 } /*typeof initialState*/
 export type PhotosType = {
-    large: string
-    small: string
+    large?: string
+    small?: string
 }
 
 export type ProfilePageType = {
     posts: Array<PostType>
     messageForNewText: string
-    profile: UserProfileReducerType | null
+    profile: UserProfileResponseType | null
 
 }
-export  type ContactsType = {
-    facebook: string
-    github: string
-    instagram: string
-    mainLink: string
-    twitter: string
-    vk: string
-    website: string
-    youtube: string
+
+export type ResponseStatusType<T={}> = {
+    data: T;
+    messages: string[];
+    fieldsErrors: string[];
+    resultCode: number;
 }
-export type UserProfileReducerType = {
+
+export  type ContactsType = {
+    facebook?: string
+    github?: string
+    instagram?: string
+    mainLink?: string
+    twitter?: string
+    vk?: string
+    website?: string
+    youtube?: string
+}
+export type UserProfileResponseType = {
     userId: string
     fullName: string
-    aboutMe: string
+    aboutMe?: string
     contacts: ContactsType
     lookingForAJob: boolean
     lookingForAJobDescription: string
@@ -57,7 +67,10 @@ export type UserProfileReducerType = {
 }
 
 export type ProfileType = {
-    profile: UserProfileReducerType | null
+    profile: UserProfileResponseType | null
+    status: string
+    updateStatus: any
+
 }
 export const addPostAC = () => {
     return {
@@ -72,20 +85,18 @@ export const changeNewTextAC = (newText: string) => {
     } as const
 }
 
-export const setUserProfile = (profile: UserProfileReducerType) => {
+export const setStatusAC = (status: string) => {
+    return {
+        type: 'set_status',
+        status
+    } as const
+}
+
+export const setUserProfile = (profile: UserProfileResponseType) => {
     return {
         type: 'set_user_profile',
         payload: {profile}
     } as const
-}
-
-export const getUserProfile = (userId: number): AppThunkType => {
-    return (dispatch) => {
-        usersAPI.getProfile(userId)
-            .then(response => {
-                dispatch(setUserProfile(response.data))
-            })
-    }
 }
 
 const initialState: InitialStateType = {
@@ -97,8 +108,8 @@ const initialState: InitialStateType = {
     ] as Array<PostType>,
     messageForNewText: '',
     profile: null,
+    status: '',
 }
-
 
 export const profileReducer = (state: InitialStateType = initialState, action: AppActionType): InitialStateType => {
     switch (action.type) {
@@ -125,8 +136,47 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
                 ...state,
                 profile: action.payload.profile,
             }
+        case 'set_status':
+
+            return {
+                ...state,
+                status: action.status,
+            }
         default:
             return state
     }
 }
 
+
+//sanka
+export const getUserProfile = (userId: number): AppThunkType => {
+    return (dispatch) => {
+        profileAPI.getProfile(userId)
+            .then(response => {
+                dispatch(setUserProfile(response.data))
+            })
+    }
+}
+
+//sanka
+export const getProfileStatus = (userId: number): AppThunkType => {
+    return (dispatch) => {
+        profileAPI.getStatus(userId)
+            .then(response => {
+                // debugger
+                dispatch(setStatusAC(response.data))
+            })
+    }
+}
+
+//sanka
+export const updateStatus = (status: string): AppThunkType => {
+    return (dispatch) => {
+        profileAPI.updateStatus(status)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(setStatusAC(status))
+                }
+            })
+    }
+}

@@ -1,28 +1,20 @@
 import {usersAPI} from '../api/api';
 import {AppActionType, AppThunkType} from './reduxStore';
 
-export type LocationType = {
-    city: string
-    country: string
-}
-export type PhotosType = {
-    small: string | undefined
-    large: string | undefined
-}
+
 export type UserType = {
-    id: number
-    name: string
-    status: string
-    photos: PhotosType
-    followed: boolean
-    isFetching: boolean
-
-
-    // location: LocationType
+    name: string;
+    id: number;
+    uniqueUrlName?: string;
+    photos: {
+        small?: string
+        large?: string
+    };
+    status?: string;
+    followed: boolean;
+   // location: LocationType
 }
-export type UsersType = {
-    users: Array<UserType>
-}
+
 type InitialStateType = {
     users: Array<UserType>,
     pageSize: number,
@@ -30,6 +22,7 @@ type InitialStateType = {
     currentPage: number,
     isFetching: boolean
     followingInProgress: number[]
+
 }
 
 const initialState: InitialStateType = {
@@ -39,8 +32,6 @@ const initialState: InitialStateType = {
     currentPage: 1,
     isFetching: false,
     followingInProgress: [],
-
-
 }
 
 export type UsersReducerActionType =

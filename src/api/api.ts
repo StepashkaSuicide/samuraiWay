@@ -1,4 +1,28 @@
 import axios from 'axios';
+import {ResponseStatusType, UserProfileResponseType} from '../Redux/profileReducer';
+
+
+export type Photos = {
+    small?: any;
+    large?: any;
+}
+
+
+export type UsersResponseApiType = {
+    items: Array<{
+        name: string;
+        id: number;
+        uniqueUrlName?: string;
+        photos: {
+            small?: string
+            large?: string
+        };
+        status?: string;
+        followed: boolean;
+    }>;
+    totalCount: number;
+    error?: string;
+}
 
 
 const instance = axios.create({
@@ -11,23 +35,34 @@ const instance = axios.create({
 
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`,)
+        return instance.get<UsersResponseApiType>(`users?page=${currentPage}&count=${pageSize}`,)
             .then(response => {
                 return response.data
             })
     },
     follow(userId: number) {
-        return instance.post(`follow/${userId}`)
+        return instance.post<ResponseStatusType>(`follow/${userId}`)
     },
     unfollow(userId: number) {
-        return instance.delete(`follow/${userId}`)
+        return instance.delete<ResponseStatusType>(`follow/${userId}`)
     },
-    getProfile(userId: number) {
-        return instance.get(`profile/${userId}`)
-
-    }
 }
 
+
+export const profileAPI = {
+
+    getProfile(userId: number) {
+        return instance.get(`profile/${userId}`)
+    },
+    getStatus(userId: number) {
+        return instance.get<string>(`/profile/status/${userId}`)
+    },
+
+    updateStatus(status: string) {
+        return instance.put<ResponseStatusType>(`/profile/status`, {status})
+    },
+
+}
 
 export const authAPI = {
     me() {

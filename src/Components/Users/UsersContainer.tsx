@@ -85,7 +85,6 @@ export default connect(mapStateToProps, {
         unfollow,
         setCurrentPage,
         onPageChanged,
-        // toggleFollowingInProgress,
         getUsers,
     }
 )(UsersContainer);

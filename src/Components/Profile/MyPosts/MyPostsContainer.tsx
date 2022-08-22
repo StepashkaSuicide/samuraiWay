@@ -5,7 +5,6 @@ import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../../Redux/reduxStore';
 
-
 export type mapStatePropsType = {
     posts: Array<PostType>
     messageForNewText: string
@@ -16,15 +15,10 @@ export type mapDispatchPropsType = {
 }
 
 export type MyPostContainerType = mapStatePropsType & mapDispatchPropsType
-
-
-
 const mapStateToProps = (state: AppStateType):mapStatePropsType  => {
-
     return {
         posts: state.profilePage.posts,
         messageForNewText: state.profilePage.messageForNewText
-
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
@@ -37,5 +31,4 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
         }
     }
 }
-
 export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)

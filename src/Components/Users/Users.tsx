@@ -3,7 +3,6 @@ import s from './Users.module.css';
 import userPhoto from '../../assets/user1.jpg';
 import {AllMapDisPropsType} from './UsersContainer';
 import {NavLink} from 'react-router-dom';
-import {usersAPI} from '../../api/api';
 
 
 export const Users = (props: AllMapDisPropsType) => {
@@ -14,14 +13,6 @@ export const Users = (props: AllMapDisPropsType) => {
     const followHandler = (userID: number) => {
         props.follow(userID)
     }
-
-        // props.toggleFollowingInProgress(true, userID)
-        // usersAPI.follow(userID)
-        //     .then(response => {
-        //         if (response.data.resultCode === 0) {
-        //             props.followSuccess(userID)
-        //         }
-        //         props.toggleFollowingInProgress(false, userID)
 
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages = []

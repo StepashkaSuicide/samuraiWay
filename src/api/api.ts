@@ -2,10 +2,6 @@ import axios from 'axios';
 import {ResponseStatusType, UserProfileResponseType} from '../Redux/profileReducer';
 import { UsersResponseApiType } from '../Redux/usersReducer';
 
-
-
-
-
 const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -29,7 +25,6 @@ export const usersAPI = {
     },
 }
 
-
 export const profileAPI = {
 
     getProfile(userId: number) {
@@ -42,7 +37,6 @@ export const profileAPI = {
     updateStatus(status: string) {
         return instance.put<ResponseStatusType>(`/profile/status`, {status})
     },
-
 }
 
 export const authAPI = {

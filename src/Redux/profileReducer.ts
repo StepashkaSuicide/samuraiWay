@@ -1,7 +1,6 @@
 import {v1} from 'uuid';
 import {AppActionType, AppThunkType} from './reduxStore';
-import {Dispatch} from 'redux';
-import {profileAPI, usersAPI} from '../api/api';
+import {profileAPI} from '../api/api';
 
 
 //     export type ResponseProfileTypeApi = {

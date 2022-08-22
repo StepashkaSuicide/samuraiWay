@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
-import {ProfileType, updateStatus} from '../../../Redux/profileReducer';
+import {ProfileType} from '../../../Redux/profileReducer';
 
 
 export const ProfileStatus = (props: ProfileType) => {

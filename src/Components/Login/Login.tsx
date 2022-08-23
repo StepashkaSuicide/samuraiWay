@@ -1,27 +1,21 @@
 import React from 'react';
 import {ReactHookForm} from './ReactHookForm';
+import s from '../Login/ReactHookForm.module.css'
 
-
-type FormData = {
-    email: string;
-    password: string;
-    errors: string
-    checkbox: boolean
-};
 
 
 export const Login = () => {
 
     return (
-        <>
+        <div className={s.loginForm}>
             <h1>
                 LOGIN
             </h1>
-            <div>
+            <div >
                 <ReactHookForm/>
             </div>
 
-        </>
+        </div>
     );
 };
 

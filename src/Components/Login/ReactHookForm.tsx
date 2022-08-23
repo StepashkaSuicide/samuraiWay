@@ -18,7 +18,7 @@ export const ReactHookForm = () => {
     return (
 
         <form onSubmit={handleSubmit(onSubmit)}>
-            <label>EMAIL:
+            <label>email:
                 <div>
                     <input type="text" autoComplete="current-mail" placeholder="email"
                            {...register('email',
@@ -32,7 +32,7 @@ export const ReactHookForm = () => {
                 </div>
             </label>
 
-            <label>PASSWORD:
+            <label>password:
                 <div>
                     <input type="password" autoComplete="current-password"
                            placeholder="пароль" {...register('password',

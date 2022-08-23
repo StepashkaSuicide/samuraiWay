@@ -6,6 +6,11 @@ export const ProfileStatus = (props: ProfileType) => {
     const [status, setStatus] = useState<string>(props.status)
     const [edit, setEdit] = useState<boolean>(true)
 
+
+    useEffect(()=> {
+        setStatus(props.status)
+    },[props.status])
+
     const statusChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value)
     }

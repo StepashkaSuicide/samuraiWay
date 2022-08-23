@@ -1,4 +1,4 @@
-import React, {ComponentType} from 'react';
+import React, {ComponentType, useEffect} from 'react';
 import {Navigate} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {AppStateType} from '../Redux/reduxStore';

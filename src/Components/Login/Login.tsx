@@ -3,7 +3,6 @@ import {ReactHookForm} from './ReactHookForm';
 import s from '../Login/ReactHookForm.module.css'
 
 
-
 export const Login = () => {
 
     return (
@@ -11,7 +10,7 @@ export const Login = () => {
             <h1>
                 LOGIN
             </h1>
-            <div >
+            <div>
                 <ReactHookForm/>
             </div>
 

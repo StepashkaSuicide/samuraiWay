@@ -9,6 +9,7 @@ export const Login = () => {
         <div className={s.loginForm}>
             <h1>
                 LOGIN
+
             </h1>
             <div>
                 <ReactHookForm/>

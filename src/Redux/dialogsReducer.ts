@@ -2,18 +2,19 @@ import { v1 } from 'uuid';
 import { AppActionType } from './reduxStore';
 
 export type DialogsReducerActionType =
-    ReturnType<typeof updateNewMessageBodyAC> |
+// ReturnType<typeof updateNewMessageBodyAC> |
     ReturnType<typeof sendMessageAC>
 
-export const updateNewMessageBodyAC = (body: string) => {
-    return {
-        type: 'update_new_message_body',
-        body: body
-    } as const
-}
-export const sendMessageAC = () => {
+// export const updateNewMessageBodyAC = (body: string) => {
+//     return {
+//         type: 'update_new_message_body',
+//         body: body
+//     } as const
+// }
+export const sendMessageAC = (newMessageBody: string) => {
     return {
         type: 'send_message',
+        newMessageBody
     } as const
 }
 export type MessageType = {
@@ -31,7 +32,7 @@ export type DialogType = {
 export type DialogPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
-    newMessageBody: string
+    // newMessageBody: string
 
 }
 
@@ -40,7 +41,7 @@ export type DialogPageType = {
 type initialStateType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
-    newMessageBody: string
+    // newMessageBody: string
 }
 
 const initialState: initialStateType = {
@@ -58,7 +59,7 @@ const initialState: initialStateType = {
         {id: v1(), message: 'Yo'},
         {id: v1(), message: 'gg'},
     ] as Array<MessageType>,
-    newMessageBody: ''
+    // newMessageBody: ''
 }
 
 
@@ -67,18 +68,18 @@ export const dialogsReducer = (state: initialStateType = initialState, action: A
     switch (action.type) {
         case 'send_message':
             const messageID = v1()
-            let newMessage = {id: messageID, message: state.newMessageBody}
+            let newMessage = {id: messageID, message: action.newMessageBody}
 
             return {
                 ...state,
                 messages: [newMessage, ...state.messages],
-                newMessageBody: ''
+                // newMessageBody: ''
             }
-        case 'update_new_message_body':
-            return {
-                ...state,
-                newMessageBody: action.body
-        }
+        // case 'update_new_message_body':
+        //     return {
+        //         ...state,
+        //         newMessageBody: action.body
+        // }
         default:
             return state
     }

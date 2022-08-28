@@ -21,7 +21,7 @@ export const ProfileStatus = (props: ProfileType) => {
     return (
         <>
             {edit
-                ? <span onDoubleClick={DoubleClickHandler}>{props.status}----- </span>
+                ? <span onDoubleClick={DoubleClickHandler}>-{props.status}-</span>
                 : <input
                     onBlur={DoubleClickHandler}
                     value={status}

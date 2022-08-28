@@ -2,8 +2,8 @@
 .preloader {
     position: absolute;
     display: flex;
-    top: 4px;
-    left: 20px
+    top: -5px;
+    left: 12px
 }
 
 .preloader img {

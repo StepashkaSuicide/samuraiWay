@@ -1,4 +1,4 @@
-import {addPostAC, changeNewTextAC, profileReducer} from './profileReducer';
+import {addPostAC, profileReducer} from './profileReducer';
 // import {dialogsReducer, sendMessageAC, updateNewMessageBodyAC} from './dialogsReducer';
 //
 // export type MessageType = {
@@ -18,7 +18,7 @@ import {addPostAC, changeNewTextAC, profileReducer} from './profileReducer';
 // }
 // export type ProfilePageType = {
 //     posts: Array<PostType>
-//     messageForNewText: string
+//     Textarea: string
 // }
 //
 //
@@ -55,7 +55,7 @@ import {addPostAC, changeNewTextAC, profileReducer} from './profileReducer';
 //                 {id: 3, message: 'bye jija', likesCount: 14},
 //                 {id: 4, message: 'oo jija', likesCount: 15},
 //             ],
-//             messageForNewText: '',
+//             Textarea: '',
 //         },
 //         dialogsPage: {
 //             dialogs: [
@@ -80,7 +80,7 @@ import {addPostAC, changeNewTextAC, profileReducer} from './profileReducer';
 //     },
 //
 //     changeNewPostText(newTextPost: string) {
-//         this._state.profilePage.messageForNewText = newTextPost
+//         this._state.profilePage.Textarea = newTextPost
 //         this._callSubscriber(this._state)
 //     },
 //
@@ -97,7 +97,7 @@ import {addPostAC, changeNewTextAC, profileReducer} from './profileReducer';
 //             likesCount: 0,
 //         }
 //         this._state.profilePage.posts.push(newPost)
-//         this._state.profilePage.messageForNewText = ''
+//         this._state.profilePage.Textarea = ''
 //         this._callSubscriber(this._state)
 //     },
 //

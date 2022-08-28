@@ -1,8 +1,6 @@
 import {v1} from 'uuid';
 import {AppActionType, AppThunkType} from './reduxStore';
 import {profileAPI} from '../api/api';
-import {useEffect} from 'react';
-
 
 //     export type ResponseProfileTypeApi = {
 //     resultCode: number
@@ -11,7 +9,6 @@ import {useEffect} from 'react';
 // }
 
 export type ProfileReducerActionType = ReturnType<typeof addPostAC>
-    | ReturnType<typeof changeNewTextAC>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatusAC>
 
@@ -22,7 +19,6 @@ export type PostType = {
 }
 export type InitialStateType = {
     posts: Array<PostType>
-    messageForNewText: string
     profile: UserProfileResponseType | null
     status: string
 
@@ -66,21 +62,13 @@ export type ProfileType = {
     profile: UserProfileResponseType | null
     status: string
     updateStatus: any
-
 }
-export const addPostAC = () => {
+export const addPostAC = (messageForNewText:string) => {
     return {
         type: 'add_post',
+        textarea: messageForNewText
     } as const
 }
-
-export const changeNewTextAC = (newText: string) => {
-    return {
-        type: 'update_new_post_text',
-        newText: newText
-    } as const
-}
-
 export const setStatusAC = (status: string) => {
     return {
         type: 'set_status',
@@ -102,7 +90,6 @@ const initialState: InitialStateType = {
         {id: v1(), message: 'bye jija', likesCount: 14},
         {id: v1(), message: 'oo jija', likesCount: 15},
     ] as Array<PostType>,
-    messageForNewText: '',
     profile: null,
     status: '',
 }
@@ -113,18 +100,12 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
             const postID = v1()
             const newPost: PostType = {
                 id: postID,
-                message: state.messageForNewText,
+                message: action.textarea,
                 likesCount: 0,
             }
             return {
                 ...state,
                 posts: [newPost, ...state.posts],
-                messageForNewText: ''
-            }
-        case 'update_new_post_text':
-            return {
-                ...state,
-                messageForNewText: action.newText
             }
         case 'set_user_profile':
 
@@ -133,7 +114,6 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
                 profile: action.payload.profile,
             }
         case 'set_status':
-
             return {
                 ...state,
                 status: action.status,
@@ -142,7 +122,6 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
             return state
     }
 }
-
 
 //sanka
 export const getUserProfile = (userId: number): AppThunkType => {
@@ -155,7 +134,6 @@ export const getUserProfile = (userId: number): AppThunkType => {
 }
 
 //sanka
-
 export const getProfileStatus = (userId: number): AppThunkType => {
     return (dispatch) => {
         profileAPI.getStatus(userId)

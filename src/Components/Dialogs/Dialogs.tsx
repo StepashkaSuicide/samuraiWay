@@ -3,6 +3,7 @@ import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogsItem';
 import Message from './Message/Message';
 import {AllMapDisToPropsType} from './DialogsContainer';
+import {FormTextArea} from '../FormTextArea/FormTextArea';
 
 
 
@@ -16,12 +17,18 @@ export const Dialogs = (props: AllMapDisToPropsType) => {
         <Message key={m.id} message={m.message} id={m.id}/>
     )
 
-    let addMessage = () => {
-        props.addMessage()
+    let addMessage = (data: {textarea?: string}) => {
+        if (data.textarea?.trim()===''){
+            throw new Error('dolbaeb')
+        }else if (data.textarea){
+            props.addMessage(data.textarea)
+        }
     }
-    const onNewMessageChange =(e:ChangeEvent<HTMLTextAreaElement>)=> {
-        props.onNewMessageChange(e.currentTarget.value)
-    }
+
+
+    // const onNewMessageChange =(e:ChangeEvent<HTMLTextAreaElement>)=> {
+    //     props.onNewMessageChange(e.currentTarget.value)
+    // }
 
     return (
         <div className={s.dialogs}>
@@ -34,13 +41,9 @@ export const Dialogs = (props: AllMapDisToPropsType) => {
                 <div className={s.postsBlock}>
                     <h3>send message</h3>
                     <div>
-                        <textarea
-                            value={state.newMessageBody}
-                            onChange={onNewMessageChange}
-                        > </textarea>
-                        <div>
-                            <button onClick={addMessage}>send</button>
-                        </div>
+
+                        <FormTextArea onSubmit={addMessage}/>
+
                     </div>
                 </div>
             </div>
@@ -49,3 +52,10 @@ export const Dialogs = (props: AllMapDisToPropsType) => {
     );
 };
 
+{/*<textarea*/}
+{/*    value={state.newMessageBody}*/}
+{/*    onChange={onNewMessageChange}*/}
+{/*> </textarea>*/}
+{/*<div>*/}
+{/*    <button onClick={addMessage}>send</button>*/}
+{/*</div>*/}

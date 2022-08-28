@@ -1,5 +1,5 @@
 import React from 'react';
-import {ReactHookForm} from './ReactHookForm';
+import {LoginReactHookForm} from './LoginReactHookForm';
 import s from '../Login/ReactHookForm.module.css'
 
 
@@ -12,7 +12,7 @@ export const Login = () => {
 
             </h1>
             <div>
-                <ReactHookForm/>
+                <LoginReactHookForm/>
             </div>
 
         </div>

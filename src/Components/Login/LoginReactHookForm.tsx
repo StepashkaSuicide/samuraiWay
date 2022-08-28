@@ -11,7 +11,7 @@ type FormData = {
 };
 
 
-export const ReactHookForm = () => {
+export const LoginReactHookForm = () => {
     const {register, handleSubmit, formState: {errors, isValid}} = useForm<FormData>({mode:'onChange'});
     const onSubmit = (data: FormData) => console.log(data);
     console.log(errors);

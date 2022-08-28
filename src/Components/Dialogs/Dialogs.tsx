@@ -4,6 +4,7 @@ import DialogItem from './DialogItem/DialogsItem';
 import Message from './Message/Message';
 import {AllMapDisToPropsType} from './DialogsContainer';
 import {FormTextArea} from '../FormTextArea/FormTextArea';
+import {Simulate} from 'react-dom/test-utils';
 
 
 
@@ -18,10 +19,11 @@ export const Dialogs = (props: AllMapDisToPropsType) => {
     )
 
     let addMessage = (data: {textarea?: string}) => {
-        if (data.textarea?.trim()===''){
-            throw new Error('dolbaeb')
-        }else if (data.textarea){
+        if (data.textarea?.trim()){
             props.addMessage(data.textarea)
+            // throw new Error('dolbaeb')
+        }else {
+          return
         }
     }
 

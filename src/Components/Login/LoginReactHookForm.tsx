@@ -2,22 +2,29 @@ import React from 'react';
 import {useForm} from 'react-hook-form';
 import s from '../Login/ReactHookForm.module.css'
 
+type LoginHookFormType = {
+    onSubmit: (data: any) => void
+}
+export type LoginType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: boolean
+}
 
-type FormData = {
+export type FormType = {
     email: string;
     password: string;
     errors: string
     checkbox: boolean
 };
 
+export const LoginReactHookForm: React.FC<LoginHookFormType> = (props) => {
+    const {register, handleSubmit, formState: {errors, isValid}} = useForm<FormType>({mode: 'onChange'});
 
-export const LoginReactHookForm = () => {
-    const {register, handleSubmit, formState: {errors, isValid}} = useForm<FormData>({mode:'onChange'});
-    const onSubmit = (data: FormData) => console.log(data);
-    console.log(errors);
+    // console.log(errors);
     return (
-
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(props.onSubmit)}>
             <label>email:
                 <div>
                     <input type="text" autoComplete="current-mail" placeholder="email"
@@ -50,6 +57,6 @@ export const LoginReactHookForm = () => {
                 {required: false})} />
             <input type="submit" disabled={!isValid}/>
         </form>
-
     )
 }
+

@@ -2,13 +2,22 @@ import React from 'react';
 import s from "./Header.module.css";
 import logo from "../../Common/images/logo.png";
 import {NavLink} from 'react-router-dom';
+import {AuthLoginType} from '../../Redux/authReducer';
+
+
+// type HeaderPropsType = {
+//     isAuth: boolean
+//     login:AuthLoginType
+//     logoutTC: ()=>void
+// }
 
 const Header = (props: any) => {
     return (
         <header className={s.header}>
             <img src={logo} alt="logo"/>
             <div className={s.loginBlock}>
-                {props.isAuth ? props.login
+                {props.isAuth
+                    ? <div>{props.login} <button onClick={props.logoutTC}>LOGOUT</button></div>
                     :<NavLink to={'/login/'}>Login</NavLink>
                      }
             </div>

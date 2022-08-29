@@ -1,4 +1,3 @@
-import React from 'react';
 import {AppActionType, AppThunkType} from './reduxStore';
 import {authAPI} from '../api/api';
 import {toggleIsFetching} from './usersReducer';
@@ -13,21 +12,21 @@ export type InitialStateTypeAuthReducer = {
 
 }
 
-
-export type AuthReducerActionType = ReturnType<typeof setAuthUserData>
-
-
-export type DataType = {
-    id: number
-    email: string
-    login: string
+export type AuthLoginType = {
+    email: string,
+    password: string,
+    rememberMe: boolean
 }
 
-export type AuthAPIType = {
-    resultCode: number
-    messages: string[]
-    data: DataType
+
+export type ResponseApiDeleteLoginType<T={}> = {
+  data: T;
+  messages: string[];
+  fieldsErrors: string[];
+  resultCode: number;
 }
+
+export type AuthReducerActionType = ReturnType<typeof setAuthUserData>  /*ReturnType<typeof setAuthUserError>*/
 
 const initialState: InitialStateTypeAuthReducer = {
     id: null,
@@ -37,12 +36,18 @@ const initialState: InitialStateTypeAuthReducer = {
     isAuth: false,
 }
 
-export const setAuthUserData = (userId: string | null, email: string | null, login: string | null) => {
+export const setAuthUserData = (userId: string | null, email: string | null, login: string | null, isAuth: boolean) => {
     return {
         type: 'set_user_data',
-        payload: {userId, email, login}
+        payload: {userId, email, login, isAuth}
     } as const
 }
+// export const setAuthUserError = (messages: string[]) => {
+//     return {
+//         type: 'set_user_data_error',
+//         payload: {messages}
+//     } as const
+// }
 
 export const authReducer = (state: InitialStateTypeAuthReducer = initialState, action: AppActionType): InitialStateTypeAuthReducer => {
     switch (action.type) {
@@ -50,8 +55,12 @@ export const authReducer = (state: InitialStateTypeAuthReducer = initialState, a
             return {
                 ...state,
                 ...action.payload,
-                isAuth: true,
             }
+        // case 'set_user_data_error':
+        //     return {
+        //         ...state,
+        //         ...action.payload
+        //     }
         default:
             return state
     }
@@ -65,8 +74,28 @@ export const getAuthUserData = (): AppThunkType => {
                 if (response.data.resultCode === 0) {
                     let {id, login, email} = response.data.data
                     toggleIsFetching(false)
-                    dispatch(setAuthUserData(id, email, login))
+                    dispatch(setAuthUserData(id, email, login, true))
                 }
             })
     }
+}
+
+
+export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunkType => (dispatch) => {
+    authAPI.login(email, password, rememberMe)
+        .then((res) => {
+            if (res.data.resultCode === 0) {
+                dispatch(getAuthUserData())
+            }
+                // dispatch(setAuthUserError(['fdfd']))
+        })
+}
+
+export const logoutTC = (): AppThunkType => (dispatch) => {
+    authAPI.logout()
+        .then((res) => {
+            if (res.data.resultCode === 0) {
+                dispatch(setAuthUserData(null, null, null, false))
+            }
+        })
 }

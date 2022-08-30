@@ -35,6 +35,7 @@ export type MapStateToPropsType = {
 export type MapDispatchPropsType = {
     setUserProfile: (profile: UserProfileResponseType) => void
 }
+
 type PropsType = RouteComponentProps<PathParamsType> & AllMapDisPropsType
 type AllMapDisPropsType = MapStateToPropsType & MapDispatchPropsType
 

@@ -49,6 +49,7 @@ export class ProfileContainer extends React.Component<PropsType> {
         this.props.getUserProfile(userId)
         this.props.getProfileStatus(userId)
     }
+
     render()/*: React.ReactNode*/ {
         return (
             <Profile

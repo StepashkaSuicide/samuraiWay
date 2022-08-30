@@ -9,21 +9,11 @@ export type InitialStateTypeAuthReducer = {
     login: string | null
     isAuth: boolean
     isFetching: boolean
-
 }
-
 export type AuthLoginType = {
     email: string,
     password: string,
     rememberMe: boolean
-}
-
-
-export type ResponseApiDeleteLoginType<T={}> = {
-  data: T;
-  messages: string[];
-  fieldsErrors: string[];
-  resultCode: number;
 }
 
 export type AuthReducerActionType = ReturnType<typeof setAuthUserData>  /*ReturnType<typeof setAuthUserError>*/
@@ -87,7 +77,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): A
             if (res.data.resultCode === 0) {
                 dispatch(getAuthUserData())
             }
-                // dispatch(setAuthUserError(['fdfd']))
+            // dispatch(setAuthUserError(['fdfd']))
         })
 }
 

@@ -1,25 +1,31 @@
 import React from 'react';
-import {LoginReactHookForm, LoginType} from './LoginReactHookForm';
+import {FormType, LoginReactHookForm} from './LoginReactHookForm';
 import s from '../Login/ReactHookForm.module.css'
-import {connect} from 'react-redux';
-import {loginTC} from '../../Redux/authReducer';
+import {connect, useDispatch, useSelector} from 'react-redux';
+import {AuthReducerActionType, InitialStateTypeAuthReducer, loginTC} from '../../Redux/authReducer';
 import {Navigate} from 'react-router-dom';
 import {AppStateType} from '../../Redux/reduxStore';
 
-type MapStatePropsType = {
+
+
+
+
+type IsAuthType = {
     isAuth: boolean
 }
-type LoginPropsType = {
-    isAuth: boolean
-    loginTC: (email: string, password: string, rememberMe: boolean) => void
-}
 
+// type LoginPropsType = {
+//     isAuth: boolean
+//     loginTC: (email: string, password: string, rememberMe: boolean) => void
+// }
 
-const Login = (props: LoginPropsType) => {   //как тут типизировать?
-
-    const onSubmit = (data: LoginType) => props.loginTC(data.email, data.password, data.rememberMe)
-
-    if (props.isAuth) {
+export const Login = () => {
+    const dispatch = useDispatch()
+    const redirectIsAuth= useSelector<AppStateType, IsAuthType>(state => state.auth)
+    const onSubmit = (data: FormType) => {
+        dispatch(loginTC(data.email, data.password, data.rememberMe))
+    }
+    if (redirectIsAuth.isAuth) {
         return <Navigate to='/profile'/>
     }
     return (
@@ -34,11 +40,12 @@ const Login = (props: LoginPropsType) => {   //как тут типизиров�
     );
 };
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => {
-    return {
-        isAuth: state.auth.isAuth,
-    }
-}
+// const mapStateToProps = (state: AppStateType): MapStatePropsType => {
+//     return {
+//         isAuth: state.auth.isAuth,
+//     }
+// }
 
-export default connect(mapStateToProps, {loginTC})(Login)
+
+// export default connect(mapStateToProps, {loginTC})(Login)
 

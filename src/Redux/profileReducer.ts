@@ -2,11 +2,6 @@ import {v1} from 'uuid';
 import {AppActionType, AppThunkType} from './reduxStore';
 import {profileAPI} from '../api/api';
 
-//     export type ResponseProfileTypeApi = {
-//     resultCode: number
-//     messages: Array<string>
-//     data: UserType
-// }
 
 export type ProfileReducerActionType = ReturnType<typeof addPostAC>
     | ReturnType<typeof setUserProfile>
@@ -22,7 +17,7 @@ export type InitialStateType = {
     profile: UserProfileResponseType | null
     status: string
 
-} /*typeof initialState*/
+}
 
 export type ProfilePageType = {
     posts: Array<PostType>
@@ -109,7 +104,7 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
             }
         case 'set_user_profile':
 
-            return /*<InitialStateType>*/{
+            return {
                 ...state,
                 profile: action.payload.profile,
             }

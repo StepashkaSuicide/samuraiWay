@@ -2,21 +2,23 @@ import React from 'react';
 import {useForm} from 'react-hook-form';
 import s from '../Login/ReactHookForm.module.css'
 
+
+
 type LoginHookFormType = {
-    onSubmit: (data: any) => void
-}
-export type LoginType = {
-    email: string
-    password: string
-    rememberMe: boolean
-    captcha?: boolean
+    onSubmit: (data: FormType) => void
 }
 
 export type FormType = {
     email: string;
     password: string;
-    errors: string
-    checkbox: boolean
+    rememberMe: boolean
+};
+export type ff = {
+    rememberMe: boolean
+    messages: string[];
+    fieldsErrors: string[];
+    resultCode: number;
+
 };
 
 export const LoginReactHookForm: React.FC<LoginHookFormType> = (props) => {
@@ -25,7 +27,6 @@ export const LoginReactHookForm: React.FC<LoginHookFormType> = (props) => {
     // console.log(errors);
     return (
         <form onSubmit={handleSubmit(props.onSubmit)}>
-            <label>email:
                 <div>
                     <input type="text" autoComplete="current-mail" placeholder="email"
                            {...register('email',
@@ -37,12 +38,10 @@ export const LoginReactHookForm: React.FC<LoginHookFormType> = (props) => {
                                })} />
                     {errors.email && <p className={s.red}>{errors.email.message || 'Не верный емайл!'}</p>}
                 </div>
-            </label>
 
-            <label>password:
                 <div>
                     <input type="password" autoComplete="current-password"
-                           placeholder="пароль" {...register('password',
+                           placeholder="password" {...register('password',
                         {
                             required: 'Логин или пароль не верны', minLength: {
                                 value: 5,
@@ -50,10 +49,9 @@ export const LoginReactHookForm: React.FC<LoginHookFormType> = (props) => {
                             }, max: 20, min: 30, maxLength: 80,
                         })} />
                     {errors.password &&
-                    <p className={s.red}>{errors?.password.message || 'Введите хотя бы одну букву!'}</p>}
+                        <p className={s.red}>{errors?.password.message || 'Введите хотя бы одну букву!'}</p>}
                 </div>
-            </label>
-            <input type="checkbox"  {...register('checkbox',
+            <input type="checkbox"  {...register('rememberMe',
                 {required: false})} />
             <input type="submit" disabled={!isValid}/>
         </form>

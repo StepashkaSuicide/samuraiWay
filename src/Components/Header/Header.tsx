@@ -1,17 +1,11 @@
 import React from 'react';
-import s from "./Header.module.css";
-import logo from "../../Common/images/logo.png";
+import s from './Header.module.css';
+import logo from '../../Common/images/logo.png';
 import {NavLink} from 'react-router-dom';
-import {AuthLoginType} from '../../Redux/authReducer';
+import {PropsTypeHeaderContainer} from './HeaderContainer';
 
 
-// type HeaderPropsType = {
-//     isAuth: boolean
-//     login:AuthLoginType
-//     logoutTC: ()=>void
-// }
-
-const Header = (props: any) => {
+const Header = (props: PropsTypeHeaderContainer) => {
     return (
         <header className={s.header}>
             <img src={logo} alt="logo"/>

@@ -10,16 +10,20 @@ type MapStatePropsType = {
     isAuth: boolean
     login: string | null
 }
+
 type MapDispatchPropsType = {
-    getAuthUserData: ()=> void
+    getAuthUserData: () => void
     toggleIsFetching: (isFetching: boolean) => void
+    logoutTC: () => void
 }
-type PropsTypeHeaderContainer = MapStatePropsType & MapDispatchPropsType
+
+export type PropsTypeHeaderContainer = MapStatePropsType & MapDispatchPropsType
 
 class HeaderContainer extends React.Component<PropsTypeHeaderContainer> {
     componentDidMount() {
         this.props.getAuthUserData()
     }
+
     render() {
         return (
             <Header  {...this.props}/>

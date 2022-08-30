@@ -2,15 +2,9 @@ import { v1 } from 'uuid';
 import { AppActionType } from './reduxStore';
 
 export type DialogsReducerActionType =
-// ReturnType<typeof updateNewMessageBodyAC> |
     ReturnType<typeof sendMessageAC>
 
-// export const updateNewMessageBodyAC = (body: string) => {
-//     return {
-//         type: 'update_new_message_body',
-//         body: body
-//     } as const
-// }
+
 export const sendMessageAC = (newMessageBody: string) => {
     return {
         type: 'send_message',
@@ -20,19 +14,16 @@ export const sendMessageAC = (newMessageBody: string) => {
 export type MessageType = {
     id: string
     message: string
-
 }
 
 export type DialogType = {
     id: string
     name: string
-
 }
 
 export type DialogPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
-    // newMessageBody: string
 
 }
 
@@ -41,7 +32,6 @@ export type DialogPageType = {
 type initialStateType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
-    // newMessageBody: string
 }
 
 const initialState: initialStateType = {
@@ -59,7 +49,6 @@ const initialState: initialStateType = {
         {id: v1(), message: 'Yo'},
         {id: v1(), message: 'gg'},
     ] as Array<MessageType>,
-    // newMessageBody: ''
 }
 
 
@@ -73,13 +62,8 @@ export const dialogsReducer = (state: initialStateType = initialState, action: A
             return {
                 ...state,
                 messages: [newMessage, ...state.messages],
-                // newMessageBody: ''
             }
-        // case 'update_new_message_body':
-        //     return {
-        //         ...state,
-        //         newMessageBody: action.body
-        // }
+
         default:
             return state
     }

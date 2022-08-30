@@ -1,24 +1,14 @@
 import React from 'react';
 import {FormType, LoginReactHookForm} from './LoginReactHookForm';
 import s from '../Login/ReactHookForm.module.css'
-import {connect, useDispatch, useSelector} from 'react-redux';
-import {AuthReducerActionType, InitialStateTypeAuthReducer, loginTC} from '../../Redux/authReducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {loginTC} from '../../Redux/authReducer';
 import {Navigate} from 'react-router-dom';
 import {AppStateType} from '../../Redux/reduxStore';
-
-
-
-
 
 type IsAuthType = {
     isAuth: boolean
 }
-
-// type LoginPropsType = {
-//     isAuth: boolean
-//     loginTC: (email: string, password: string, rememberMe: boolean) => void
-// }
-
 export const Login = () => {
     const dispatch = useDispatch()
     const redirectIsAuth= useSelector<AppStateType, IsAuthType>(state => state.auth)
@@ -49,3 +39,7 @@ export const Login = () => {
 
 // export default connect(mapStateToProps, {loginTC})(Login)
 
+// type LoginPropsType = {
+//     isAuth: boolean
+//     loginTC: (email: string, password: string, rememberMe: boolean) => void
+// }

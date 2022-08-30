@@ -4,7 +4,7 @@ import {toggleIsFetching} from './usersReducer';
 
 
 export type InitialStateTypeAuthReducer = {
-    id: string | null
+    userId: string | null
     email: string | null
     login: string | null
     isAuth: boolean
@@ -19,7 +19,7 @@ export type AuthLoginType = {
 export type AuthReducerActionType = ReturnType<typeof setAuthUserData>  /*ReturnType<typeof setAuthUserError>*/
 
 const initialState: InitialStateTypeAuthReducer = {
-    id: null,
+    userId: null,
     email: null,
     login: null,
     isFetching: false,

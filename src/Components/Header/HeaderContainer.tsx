@@ -5,7 +5,7 @@ import {toggleIsFetching} from '../../Redux/usersReducer';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../Redux/reduxStore';
 
-type MapStatePropsType = {
+export type MapStatePropsType = {
     isFetching: boolean
     isAuth: boolean
     login: string | null

@@ -50,7 +50,6 @@ export class ProfileContainer extends React.Component<PropsType> {
         this.props.getProfileStatus(userId)
     }
 
-
     render()/*: React.ReactNode*/ {
         return (
             <Profile

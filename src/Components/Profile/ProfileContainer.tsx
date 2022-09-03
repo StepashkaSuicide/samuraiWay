@@ -1,8 +1,14 @@
 import React, {ComponentType} from 'react';
 import Profile from './Profile';
-import {connect} from 'react-redux';
-import {getProfileStatus, getUserProfile, updateStatus, UserProfileResponseType} from '../../Redux/profileReducer';
-import {useLocation, useNavigate, useParams,} from 'react-router-dom';
+import {connect, useSelector} from 'react-redux';
+import {
+    getProfileStatus,
+    getUserProfile,
+    ProfileType,
+    updateStatus,
+    UserProfileResponseType
+} from '../../Redux/profileReducer';
+import {Navigate, useLocation, useNavigate, useParams,} from 'react-router-dom';
 // @ts-ignore
 import {RouteComponentProps} from 'react-router';
 import {compose} from 'redux';
@@ -41,6 +47,7 @@ type AllMapDisPropsType = MapStateToPropsType & MapDispatchPropsType
 
 export class ProfileContainer extends React.Component<PropsType> {
 
+
     componentDidMount() {
         let userId = this.props.router.params.userId;
         if (!userId) {
@@ -50,7 +57,7 @@ export class ProfileContainer extends React.Component<PropsType> {
         this.props.getProfileStatus(userId)
     }
 
-    render()/*: React.ReactNode*/ {
+    render() {
         return (
             <Profile
                 profile={this.props.profile}
@@ -76,3 +83,8 @@ export default compose<ComponentType>(
     withRouter,
     // withAuthRedirect
 ) (ProfileContainer)
+
+// const profile = useSelector<AppStateType, UserProfileResponseType | null>(state => state.profilePage.profile)
+// const profile = useSelector<AppStateType,  string>(state => state.profilePage.status)
+// const profile = useSelector<AppStateType,  string | null>(state => state.auth.userId)
+// const profile = useSelector<AppStateType,  boolean>(state => state.auth.isAuth)

@@ -1,6 +1,8 @@
 import {AppActionType, AppThunkType} from './reduxStore';
 import {authAPI} from '../api/api';
 import {toggleIsFetching} from './usersReducer';
+import {Dispatch} from 'redux';
+import {initializedSuccess} from './appReducer';
 
 
 export type InitialStateTypeAuthReducer = {
@@ -56,18 +58,16 @@ export const authReducer = (state: InitialStateTypeAuthReducer = initialState, a
     }
 }
 
-export const getAuthUserData = (): AppThunkType => {
-    return (dispatch) => {
-        toggleIsFetching(true)
-        authAPI.me()
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    let {id, login, email} = response.data.data
-                    toggleIsFetching(false)
-                    dispatch(setAuthUserData(id, email, login, true))
-                }
-            })
-    }
+export const getAuthUserData = () => (dispatch: Dispatch<AuthReducerActionType>) => {
+    toggleIsFetching(true)
+    return authAPI.me()
+    .then(response => {
+        if (response.data.resultCode === 0) {
+            let {id, login, email} = response.data.data
+            toggleIsFetching(false);
+            dispatch(setAuthUserData(id, email, login, true))
+        }
+    })
 }
 
 
@@ -76,7 +76,13 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): A
         .then((res) => {
             if (res.data.resultCode === 0) {
                 dispatch(getAuthUserData())
+                    // .then(()=> {
+                    //     dispatch(initializedSuccess())
+                    // })
+            // } else {
+            //     let message = res.data.messages.length > 0 ? res.data.messages[0] : 'Some Error'
             }
+
             // dispatch(setAuthUserError(['fdfd']))
         })
 }

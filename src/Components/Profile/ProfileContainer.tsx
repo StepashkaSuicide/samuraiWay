@@ -13,6 +13,7 @@ import {Navigate, useLocation, useNavigate, useParams,} from 'react-router-dom';
 import {RouteComponentProps} from 'react-router';
 import {compose} from 'redux';
 import {AppStateType} from '../../Redux/reduxStore';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 
 function withRouter(Component: any /*React.ElementType*/) {
     function ComponentWithRouterProp(props: any) {
@@ -81,7 +82,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
 export default compose<ComponentType>(
     connect(mapStateToProps, {getUserProfile, getProfileStatus, updateStatus}),
     withRouter,
-    // withAuthRedirect
+    withAuthRedirect
 ) (ProfileContainer)
 
 // const profile = useSelector<AppStateType, UserProfileResponseType | null>(state => state.profilePage.profile)

@@ -12,19 +12,19 @@ import {useDispatch, useSelector} from 'react-redux';
 import { initializeApp } from './Redux/appReducer';
 import { Preloader } from './Common/preloader/Preloader';
 
-const App = () => {
-    const dispatch = useDispatch()
-    // const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
-    const initialized = useSelector<AppStateType, boolean>(state => state.app.initialized)
+// const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
 
+const App = () => {
+
+    const initialized = useSelector<AppStateType, boolean>(state => state.app.initialized)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(initializeApp())
     }, [])
-
-        if (!initialized) {
-            return <Preloader/>
-        }
+        // if (!initialized) {
+        //     return <Preloader/>
+        // }
 
         return (
             <div className={s.appWrapper}>

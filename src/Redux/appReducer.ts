@@ -14,7 +14,6 @@ const initialState: InitialStateTypeAppReducer = {
 export const initializedSuccess = () => {
     return {
         type: 'set_initialized',
-
     } as const
 }
 
